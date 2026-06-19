@@ -620,3 +620,328 @@ html {
     width: 20%; /* Cada imagen ocupa el 20% del ancho del carrusel */
   }
 }
+
+/* ==========================================================================
+   MODAL DE CARRITO LATERIAL (ESTILO FIGMA - NANA MIMUS)
+   ========================================================================== */
+
+/* Fondo oscuro traslúcido (Backdrop) */
+.cart-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Clase activa para mostrar el fondo */
+.cart-backdrop.show {
+    display: block;
+    opacity: 1;
+}
+
+/* Contenedor Principal del Modal (Figma Sidebar Derecho) */
+.cart-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 420px;
+    height: 100vh;
+    background-color: #ffffff;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Clase activa para deslizar el modal a la pantalla */
+.cart-modal.open {
+    transform: translateX(0);
+}
+
+/* Cabecera del Modal */
+.cart-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.cart-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333333;
+}
+
+/* Contador de ítems al lado del título (ej: 1 item) */
+.cart-badge-count {
+    background: #fff0f6;
+    color: #ff409f;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/* Botón 'X' para cerrar */
+.close-cart {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #aaaaaa;
+    transition: color 0.2s ease;
+}
+
+.close-cart:hover {
+    color: #333333;
+}
+
+/* Cuerpo interno con scroll independiente */
+.cart-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+/* --- Estado del Carrito Vacío (Figma image_474181.jpg) --- */
+.cart-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    gap: 15px;
+}
+
+.cart-empty i {
+    font-size: 2.5rem;
+    color: #ff409f;
+    background: #fff0f6;
+    padding: 20px;
+    border-radius: 50%;
+}
+
+.cart-empty p {
+    color: #777777;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.btn-seguir {
+    background: #ff409f;
+    color: #ffffff;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 10px rgba(255, 64, 159, 0.2);
+    transition: background 0.2s ease;
+}
+
+.btn-seguir:hover {
+    background: #e03088;
+}
+
+/* --- Tarjetas de Productos Agregados (Figma image_4744a8.png) --- */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #fffafd;
+    border: 1px solid #fdeef5;
+    padding: 12px;
+    border-radius: 15px;
+    margin-bottom: 12px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.cart-item img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-title {
+    font-size: 0.85rem;
+    color: #333333;
+    font-weight: 500;
+    margin: 0 0 4px 0;
+    padding-right: 25px; /* Evita que el texto choque con la papelera */
+}
+
+.item-price {
+    color: #ff409f;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Controladores de Cantidad (- 1 +) */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 20px;
+    width: fit-content;
+    margin-top: 6px;
+    padding: 2px 8px;
+    gap: 8px;
+}
+
+.quantity-control button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #777777;
+    font-weight: bold;
+    font-size: 0.8rem;
+    padding: 0 4px;
+}
+
+.quantity-control button:hover {
+    color: #ff409f;
+}
+
+.quantity-control span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    width: 15px;
+    text-align: center;
+    color: #333333;
+}
+
+/* Subtotal acumulado a la derecha */
+.item-subtotal {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+/* Botón de papelera para eliminar ítem entero */
+.btn-remove {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #cccccc;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.btn-remove:hover {
+    color: #ff4040;
+}
+
+/* --- Footer fija inferior con Totales y Checkout --- */
+.cart-footer {
+    border-top: 1px solid #eeeeee;
+    padding: 20px;
+    background: #fafafa;
+}
+
+.row-fee {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #666666;
+    margin-bottom: 8px;
+}
+
+/* Alerta de Envío Gratis */
+.shipping-alert {
+    background: #fff0f6;
+    color: #ff409f;
+    font-size: 0.75rem;
+    text-align: center;
+    padding: 6px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.row-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #333333;
+}
+
+.total-price {
+    color: #ff409f;
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+/* Botón de Pago Principal */
+.btn-checkout {
+    background: #ff409f;
+    color: #ffffff;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 64, 159, 0.3);
+    font-family: 'Poppins', sans-serif;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-checkout:hover {
+    background: #e03088;
+}
+
+.btn-checkout:active {
+    transform: scale(0.98);
+}
+
+/* Botón secundario para vaciar carrito */
+.btn-vaciar {
+    display: block;
+    text-align: center;
+    background: none;
+    border: none;
+    color: #aaaaaa;
+    font-size: 0.75rem;
+    margin: 10px auto 0 auto;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-vaciar:hover {
+    color: #666666;
+}
