@@ -62,9 +62,33 @@ $items_iniciales = 0;
             </div>
         </main>
     </div>
-    <?php include 'footer.php'; ?>
-    <script src="productos.js"></script>
+    <!-- ESTRUCTURA DEL MODAL LATERAL DEL CARRITO -->
+    <div id="cartBackdrop" class="cart-backdrop"></div>
+    <div id="cartModal" class="cart-modal">
+        
+        <div class="cart-header">
+            <div class="cart-title">
+                <i class="fa-solid fa-shopping-cart" style="color: #ff409f;"></i>
+                <span>Mi Carrito</span>
+                <span id="cartCountTag" class="cart-badge-count">0 items</span>
+            </div>
+            <button id="closeCartBtn" class="close-cart"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="cart-body" id="cartBody">
+            <!-- Estado Vacío -->
+            <div id="cartEmptyState" class="cart-empty">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <p>Tu carrito está vacío</p>
+                <button class="btn-seguir" id="btnSeguirComprando">Seguir comprando</button>
+            </div>
+            <!-- Contenedor dinámico de productos -->
+            <div id="cartItemsList" style="display:none;"></div>
+        </div>
+        <script src="productos.js"></script>
     <script src="carrito.js"></script>
+    <?php include 'footer.php'; ?>
+    
 </body>
 
 </html>
