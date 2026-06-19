@@ -62,25 +62,6 @@ $items_iniciales = 0;
             </div>
         </main>
     </div>
-
-    <div class="carrito-sidebar hidden" id="sidebarCarrito">
-
-        <div class="popup-container">
-
-            <div class="carrito-header">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <i class="fa-solid fa-cart-shopping" style="color: #ff409f; font-size: 1.2rem;"></i>
-                    <h2 style="margin: 0; font-size: 1.2rem; color: #333; font-family: 'Poppins', sans-serif;">Mi Carrito</h2>
-                    <span class="badge" id="cart-badge-count">0 items</span>
-                </div>
-                <button class="close-btn" id="close-cart-btn">&times;</button>
-            </div>
-
-            <div id="wrapper-dinamico-carrito" style="width: 100%; display: flex; flex-direction: column; flex: 1; overflow: hidden;"></div>
-
-        </div>
-
-    </div>
     <div id="footer"></div>                
     <script src="productos.js"></script>
     <script src="carrito.js"></script>
