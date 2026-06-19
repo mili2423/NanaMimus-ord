@@ -9,18 +9,47 @@ $items_iniciales = 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index | Nana Mimus</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="estilos.css">
-    <link rel="stylesheet" href="mas_prod.css">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- ESTILOS INTERNOS PARA EL MODAL LATERAL ESTILO FIGMA -->
+    <style>
+        .cart-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 998;
+            display: none;
+        }
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 100%;
+            max-width: 420px;
+            height: 100%;
+            background: #fff;
+            z-index: 999;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+        .cart-modal.open {
+            right: 0 !important;
+        }
+        .cart-backdrop.show {
+            display: block !important;
+        }
+    </style>
 </head>
 
 <body>
+    <?php include 'header.php'; ?> 
+    
     <?php include 'header.php'; ?>
     <div class="carousel">
         <ul>
@@ -41,10 +70,25 @@ $items_iniciales = 0;
         }
         $resultado = $conexion->query($sql);
         ?>
-        <main id="lista-categorias" class="productos-secciones">
-            <div style="display: flex; gap: 20px; flex-wrap: wrap; padding: 20px; justify-content: center;">
+        <main id="lista-categorias" class="seccion-productos">
+            <div class="contenedor-productos">
                 <?php if ($resultado && $resultado->num_rows > 0): ?>
                     <?php while ($producto = $resultado->fetch_assoc()): ?>
+                        <div class="producto-card">
+                            <img src="<?php echo $producto['imagen1']; ?>" alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
+                            <div class="producto-info">
+                                <h3><?php echo htmlspecialchars($producto['nombre']); ?></h3>
+                                <p class="precio">$<?php echo number_format($producto['precio'], 2); ?></p>
+                                
+                                <!-- Tu botón nativo tal cual lo tenías, usando ejecutarCarrito -->
+                                <button class="btn-carrito" 
+                                        data-nombre="<?php echo htmlspecialchars($producto['nombre'], ENT_QUOTES); ?>"
+                                        data-precio="<?php echo $producto['precio']; ?>"
+                                        data-imagen="<?php echo $producto['imagen1']; ?>"
+                                        onclick="ejecutarCarrito('agregar', <?php echo $producto['id']; ?>)">
+                                    <i class="fa-solid fa-cart-shopping" style="margin-right: 8px;"></i> Agregar al Carrito
+                                </button>
+                            </div>
                         <div style="background: white; padding: 15px; border-radius: 15px; border: 1px solid #fdeef5; text-align: center; width: 220px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
                             <img src="<?php echo $producto['imagen1']; ?>" alt="" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px;">
                             <h4 style="margin: 10px 0 5px 0; font-size: 0.95rem; color: #333;"><?php echo $producto['nombre']; ?></h4>
@@ -64,6 +108,7 @@ $items_iniciales = 0;
             </div>
         </main>
     </div>
+
     <!-- ESTRUCTURA DEL MODAL LATERAL DEL CARRITO -->
     <div id="cartBackdrop" class="cart-backdrop"></div>
     <div id="cartModal" class="cart-modal">
