@@ -24,15 +24,10 @@
                         </a>
                         <span class="badge-contador" id="contadorFavoritos">0</span>
                     </div>
-
-                    <!-- Botón integrado en la Navbar (Estilo Figma image_3a28cb.png) -->
-<button id="openCartFloating" class="navbar-cart-btn">
-    <!-- Usamos el icono de FontAwesome que coincide exactamente con el diseño -->
-    <i class="fa-solid fa-cart-shopping"></i>
-    <!-- Contador de burbuja -->
-    <span id="globalCartCount" class="navbar-cart-badge">0</span>
-</button>
-
+        <a href="#" id="openCartFloating">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <span id="globalCartCount" class="badge-contador" style="display: none;">0</span>
                     <div class="icon-container">
                         <a href="iniciosesion.html">
                             <i class="fa-regular fa-user"></i>
