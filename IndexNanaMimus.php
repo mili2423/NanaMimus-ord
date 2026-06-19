@@ -49,9 +49,7 @@ $items_iniciales = 0;
 
 <body>
     <?php include 'header.php'; ?> 
-    
-    <?php include 'header.php'; ?>
-    <div class="carousel">
+        <div class="carousel">
         <ul>
             <li><img width="1580" height="450" src="NanaMimus/carrr1.jpg" alt=""></li>
             <li><img width="1580" height="450" src="NanaMimus/carrr2.jpg" alt=""></li>
