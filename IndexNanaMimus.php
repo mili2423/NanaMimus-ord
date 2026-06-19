@@ -1,11 +1,5 @@
 <?php 
 include("conexion.php"); 
-$usuario_id = 1;
-
-// Consulta rápida inicial solo para que la página cargue con el contador correcto en la Navbar
-$res_cont = $conexion->query("SELECT SUM(cantidad) AS total FROM carrito WHERE usuario_id = $usuario_id");
-$fila_cont = $res_cont->fetch_assoc();
-$items_iniciales = $fila_cont['total'] ?? 0;
 ?>
 <!DOCTYPE html>
 <html lang="es">
