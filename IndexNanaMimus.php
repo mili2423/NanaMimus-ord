@@ -61,6 +61,8 @@ include("conexion.php");
             </div>
         </main>
     </div>
+    <!-- Carga la nueva lógica del modal del carrito -->
+    <script src="carrito.js"></script>
     <div id="footer"></div>                
     <script src="productos.js"></script>
     <script src="carrito.js"></script>
