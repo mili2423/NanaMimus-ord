@@ -25,10 +25,13 @@
                         <span class="badge-contador" id="contadorFavoritos">0</span>
                     </div>
 
-                    <button id="openCartFloating" style="position: fixed; top: 20px; right: 20px; z-index: 99; background: #fff0f6; border: 1px solid #fdeef5; color: #ff409f; padding: 12px 15px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                        <i class="fa-solid fa-shopping-cart"></i>
-                        <span id="globalCartCount" style="background: #ff409f; color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 50%; position: absolute; top: -5px; right: -5px; display: none; font-weight: bold;">0</span>
-                    </button>
+                    <!-- Botón integrado en la Navbar (Estilo Figma image_3a28cb.png) -->
+<button id="openCartFloating" class="navbar-cart-btn">
+    <!-- Usamos el icono de FontAwesome que coincide exactamente con el diseño -->
+    <i class="fa-solid fa-cart-shopping"></i>
+    <!-- Contador de burbuja -->
+    <span id="globalCartCount" class="navbar-cart-badge">0</span>
+</button>
 
                     <div class="icon-container">
                         <a href="iniciosesion.html">
