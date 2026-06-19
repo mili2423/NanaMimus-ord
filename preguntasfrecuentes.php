@@ -19,8 +19,6 @@ include("conexion.php");
 </head>
 
 <body class="body-faq">
-
-    <div id="header"></div>
     <main class="faq-main-container">
 
         <div class="faq-header-center">
@@ -201,5 +199,4 @@ include("conexion.php");
     <script src="scrip_pf.js"></script>
 
 </body>
-<div id="footer"></div>
 </html>

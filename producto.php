@@ -149,8 +149,6 @@ $producto = mysqli_fetch_assoc($resultado);
       </div>
   </div>
 
-  <div id="footer"></div>
-
   <script src="productos.js"></script>
   <script src="carrito.js"></script>
   <script src="favoritos.js"></script>

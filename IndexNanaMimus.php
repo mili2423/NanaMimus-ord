@@ -87,5 +87,5 @@ $items_iniciales = $fila_cont['total'] ?? 0;
   <script src="productos.js"></script>
   <script src="carrito.js"></script>
 </body>      
-<div id="footer"></div>           
+<div id="footer"></div>
 </html>
