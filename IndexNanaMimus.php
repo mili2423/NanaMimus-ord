@@ -11,6 +11,8 @@ $items_iniciales = 0;
     <title>Index | Nana Mimus</title>
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- ESTILOS INTERNOS PARA EL MODAL LATERAL ESTILO FIGMA -->
     <style>
         .cart-backdrop {
             position: fixed;
@@ -25,7 +27,7 @@ $items_iniciales = 0;
         .cart-modal {
             position: fixed;
             top: 0;
-            right: -450px; /* Escondido por defecto a la derecha */
+            right: -450px;
             width: 100%;
             max-width: 420px;
             height: 100%;
@@ -36,15 +38,13 @@ $items_iniciales = 0;
             display: flex;
             flex-direction: column;
         }
-        /* Clase que añade el JS automáticamente al hacer clic */
         .cart-modal.open {
-            right: 0 !important; /* Lo muestra en pantalla */
+            right: 0 !important;
         }
         .cart-backdrop.show {
             display: block !important;
         }
     </style>
-</head>
 </head>
 
 <body>
@@ -79,13 +79,12 @@ $items_iniciales = 0;
                                 <h3><?php echo htmlspecialchars($producto['nombre']); ?></h3>
                                 <p class="precio">$<?php echo number_format($producto['precio'], 2); ?></p>
                                 
-                                <!-- CORREGIDO: Le pasamos los datos nativos estructurados al JavaScript para que los capture sin errores -->
+                                <!-- Tu botón nativo tal cual lo tenías, usando ejecutarCarrito -->
                                 <button class="btn-carrito" 
-                                        data-id="<?php echo $producto['id']; ?>"
                                         data-nombre="<?php echo htmlspecialchars($producto['nombre'], ENT_QUOTES); ?>"
                                         data-precio="<?php echo $producto['precio']; ?>"
                                         data-imagen="<?php echo $producto['imagen1']; ?>"
-                                        onclick="agregarDesdeBoton(this)">
+                                        onclick="ejecutarCarrito('agregar', <?php echo $producto['id']; ?>)">
                                     <i class="fa-solid fa-cart-shopping" style="margin-right: 8px;"></i> Agregar al Carrito
                                 </button>
                             </div>
@@ -110,6 +109,7 @@ $items_iniciales = 0;
             </div>
             <button id="closeCartBtn" class="close-cart"><i class="fa-solid fa-xmark"></i></button>
         </div>
+
         <div class="cart-body" id="cartBody">
             <!-- Estado Vacío -->
             <div id="cartEmptyState" class="cart-empty">
@@ -144,6 +144,5 @@ $items_iniciales = 0;
 <!-- CARGA DE SCRIPTS -->
 <script src="productos.js"></script>
 <script src="carrito.js"></script>
-<!-- EL FOOTER REAL DE LA TIENDA TOTALMENTE AFUERA DEL MODAL -->
 <?php include 'footer.php'; ?>
 </html>

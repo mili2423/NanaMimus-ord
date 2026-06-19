@@ -1,4 +1,4 @@
-let carrito = JSON.parse(localStorage.getItem('nanamimus_cart')) || [];
+let carrito = [];
 const COSTO_ENVIO = 5.99;
 const META_ENVIO_GRATIS = 50.00;
 
@@ -13,14 +13,7 @@ const cartEmptyState = document.getElementById('cartEmptyState');
 const cartItemsList = document.getElementById('cartItemsList');
 const cartFooter = document.getElementById('cartFooter');
 
-const cartCountTag = document.getElementById('cartCountTag');
-const globalCartCount = document.getElementById('globalCartCount');
-const cartTotalPrice = document.getElementById('cartTotalPrice');
-const shippingPrice = document.getElementById('shippingPrice');
-const shippingAlert = document.getElementById('shippingAlert');
-const neededAmount = document.getElementById('neededAmount');
-
-// Abrir y Cerrar Modal del Carrito
+// Control de apertura y cierre del modal lateral
 function toggleCart(show) {
     if (show) {
         if(cartBackdrop) cartBackdrop.classList.add('show');
@@ -36,7 +29,7 @@ if(closeCartBtn) closeCartBtn.addEventListener('click', () => toggleCart(false))
 if(btnSeguirComprando) btnSeguirComprando.addEventListener('click', () => toggleCart(false));
 if(cartBackdrop) cartBackdrop.addEventListener('click', () => toggleCart(false));
 
-// Agregar Producto al hacer clic en el catálogo
+// Lógica para añadir artículos
 function ejecutarCarrito(accion, id) {
     if (accion === 'agregar') {
         const itemExistente = carrito.find(prod => prod.id === id);
@@ -47,14 +40,13 @@ function ejecutarCarrito(accion, id) {
             actualizarInterfazCarrito();
             toggleCart(true);
         } else {
-            // Buscamos los datos visuales de la tarjeta del catálogo para no romper parámetros por comillas
-            const botonClickeado = document.querySelector(`button[onclick*="id_producto = ${id}"], button[onclick*="${id}"]`);
-            const tarjeta = botonClickeado ? botonClickeado.closest('.producto-card') : null;
+            // Buscamos el botón clickeado que tiene el ID correspondiente
+            const boton = document.querySelector(`button[onclick*="${id}"]`);
             
-            const nombre = tarjeta ? tarjeta.querySelector('h3').innerText : "Producto";
-            const precioTxt = tarjeta ? tarjeta.querySelector('.precio').innerText : "$0.00";
-            const precio = parseFloat(precioTxt.replace('$', '')) || 0;
-            const imagen = tarjeta ? tarjeta.querySelector('img').src : "NanaMimus/logotipo.jpg";
+            // Leemos los atributos data- de forma segura
+            const nombre = boton ? boton.getAttribute('data-nombre') : "Producto";
+            const precio = boton ? parseFloat(boton.getAttribute('data-precio')) : 0;
+            const imagen = boton ? boton.getAttribute('data-imagen') : 'NanaMimus/carrr1.jpg';
 
             carrito.push({ id, nombre, precio, imagen, cantidad: 1 });
             sincronizarConBD(id, 1);
@@ -64,7 +56,6 @@ function ejecutarCarrito(accion, id) {
     }
 }
 
-// Cambiar cantidad (+ o -) en las tarjetas del carrito
 function cambiarCantidad(id, cambio) {
     const item = carrito.find(prod => prod.id === id);
     if (item) {
@@ -78,7 +69,6 @@ function cambiarCantidad(id, cambio) {
     }
 }
 
-// Eliminar un producto del carrito
 function eliminarDelCarrito(id) {
     carrito = carrito.filter(prod => prod.id !== id);
     fetch('actualizar_carrito_bd.php', {
@@ -89,7 +79,6 @@ function eliminarDelCarrito(id) {
     actualizarInterfazCarrito();
 }
 
-// Sincronizar cantidades con el archivo PHP aparte
 function sincronizarConBD(id, cantidad) {
     fetch('actualizar_carrito_bd.php', {
         method: 'POST',
@@ -98,20 +87,23 @@ function sincronizarConBD(id, cantidad) {
     });
 }
 
-// Renderizar la interfaz idéntica a tu diseño de Figma
+// Pintar la interfaz en tu cartBody (Línea 113 protegida contra errores 404)
 function actualizarInterfazCarrito() {
-    localStorage.setItem('nanamimus_cart', JSON.stringify(carrito));
-    
+    const cartCountTag = document.getElementById('cartCountTag');
+    const globalCartCount = document.getElementById('globalCartCount');
+    const shippingPrice = document.getElementById('shippingPrice');
+    const shippingAlert = document.getElementById('shippingAlert');
+    const neededAmount = document.getElementById('neededAmount');
+    const cartTotalPrice = document.getElementById('cartTotalPrice');
+
     const totalItems = carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
     if(cartCountTag) cartCountTag.innerText = `${totalItems} ${totalItems === 1 ? 'item' : 'items'}`;
     
-    if (totalItems > 0) {
-        if(globalCartCount) {
-            globalCartCount.innerText = totalItems;
-            globalCartCount.style.display = 'inline-block';
-        }
-    } else {
-        if(globalCartCount) globalCartCount.style.display = 'none';
+    if (totalItems > 0 && globalCartCount) {
+        globalCartCount.innerText = totalItems;
+        globalCartCount.style.display = 'inline-block';
+    } else if(globalCartCount) {
+        globalCartCount.style.display = 'none';
     }
 
     if (carrito.length === 0) {
@@ -132,21 +124,24 @@ function actualizarInterfazCarrito() {
         carrito.forEach(prod => {
             const subtotalItem = prod.precio * prod.cantidad;
             subtotal += subtotalItem;
+            
+            let imgSegura = prod.imagen ? prod.imagen : 'NanaMimus/carrr1.jpg';
 
             cartItemsList.innerHTML += `
-                <div class="cart-item" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; padding: 10px; background: #fff; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                    <img src="${prod.imagen}" alt="${prod.nombre}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                <div class="cart-item" style="display: flex; align-items: center; justify-content: space-between; margin: 12px; padding: 10px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); font-family: sans-serif;">
+                    <!-- Protección onerror en la imagen para prevenir el 404 -->
+                    <img src="${imgSegura}" alt="${prod.nombre}" onerror="this.onerror=null; this.src='NanaMimus/carrr1.jpg';" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
                     <div style="flex: 1; margin-left: 12px;">
-                        <h5 style="margin: 0; font-size: 0.9rem; color: #333;">${prod.nombre}</h5>
+                        <h5 style="margin: 0; font-size: 0.9rem; color: #333; font-weight: 600;">${prod.nombre}</h5>
                         <p style="margin: 3px 0; color: #ff409f; font-weight: bold; font-size: 0.9rem;">$${prod.precio.toFixed(2)}</p>
                         <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
-                            <button onclick="cambiarCantidad(${prod.id}, -1)" style="background: #fff0f6; border: 1px solid #ffc0cb; color: #ff409f; border-radius: 50%; width: 22px; height: 22px; cursor: pointer;">-</button>
-                            <span style="font-size: 0.85rem; font-weight: bold;">${prod.cantidad}</span>
-                            <button onclick="cambiarCantidad(${prod.id}, 1)" style="background: #fff0f6; border: 1px solid #ffc0cb; color: #ff409f; border-radius: 50%; width: 22px; height: 22px; cursor: pointer;">+</button>
+                            <button onclick="cambiarCantidad(${prod.id}, -1)" style="background: #fff0f6; border: 1px solid #ffc0cb; color: #ff409f; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold;">-</button>
+                            <span style="font-size: 0.85rem; font-weight: bold; min-width: 15px; text-align: center;">${prod.cantidad}</span>
+                            <button onclick="cambiarCantidad(${prod.id}, 1)" style="background: #fff0f6; border: 1px solid #ffc0cb; color: #ff409f; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold;">+</button>
                         </div>
                     </div>
-                    <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
-                        <button onclick="eliminarDelCarrito(${prod.id})" style="background: none; border: none; color: #aaa; cursor: pointer;"><i class="fa-solid fa-trash-can"></i></button>
+                    <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; height: 55px;">
+                        <button onclick="eliminarDelCarrito(${prod.id})" style="background: none; border: none; color: #ff409f; cursor: pointer; font-size: 0.9rem;"><i class="fa-solid fa-trash-can"></i></button>
                         <span style="font-weight: bold; font-size: 0.9rem; color: #333;">$${subtotalItem.toFixed(2)}</span>
                     </div>
                 </div>
@@ -170,7 +165,7 @@ function actualizarInterfazCarrito() {
     }
 }
 
-// Cargar datos asíncronamente desde el archivo PHP externo al abrir la tienda
+// Carga asíncrona de la base de datos
 function cargarCarritoDesdeBD() {
     fetch('actualizar_carrito_bd.php', {
         method: 'POST',
@@ -185,11 +180,10 @@ function cargarCarritoDesdeBD() {
         }
     })
     .catch(() => {
-        actualizarInterfazCarrito(); // Fallback por si acaso
+        actualizarInterfazCarrito();
     });
 }
 
-// Vaciar carrito por completo
 if(document.getElementById('btnVaciarCarrito')) {
     document.getElementById('btnVaciarCarrito').addEventListener('click', () => {
         carrito = [];
