@@ -81,7 +81,7 @@ $items_iniciales = 0;
         </div>
 
     </div>
-    <?php include 'footer.php'; ?>
+    <div id="footer"></div>                
     <script src="productos.js"></script>
     <script src="carrito.js"></script>
 </body>
