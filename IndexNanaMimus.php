@@ -1,5 +1,6 @@
 <?php
 include("conexion.php");
+$items_iniciales = 0;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,7 +21,7 @@ include("conexion.php");
 </head>
 
 <body>
-    <div id="header"></div>
+    <?php include 'header.php'; ?>
     <div class="carousel">
         <ul>
             <li><img width="1580" height="450" src="NanaMimus/carrr1.jpg" alt=""></li>
@@ -80,8 +81,9 @@ include("conexion.php");
         </div>
 
     </div>
-    <div id="footer"></div>                
+    <?php include 'footer.php'; ?>
     <script src="productos.js"></script>
     <script src="carrito.js"></script>
 </body>
+
 </html>
