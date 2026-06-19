@@ -1,5 +1,7 @@
+// ==========================================================================
+// LÓGICA DEL CARRITO CON BASE DE DATOS Y LOCALSTORAGE (NANA MIMUS)
+// ==========================================================================
 
-// Estado interno persistido mediante LocalStorage
 let carrito = JSON.parse(localStorage.getItem('nanamimus_cart')) || [];
 const COSTO_ENVIO = 5.99;
 const META_ENVIO_GRATIS = 50.00;
@@ -12,7 +14,7 @@ const btnSeguirComprando = document.getElementById('btnSeguirComprando');
 const openCartFloating = document.getElementById('openCartFloating');
 
 const cartEmptyState = document.getElementById('cartEmptyState');
-const cartItemsList = document.getElementById('cartItemsList');
+const cartItemsList = document.getElementById('cartItemsList'); // Contenedor dinámico
 const cartFooter = document.getElementById('cartFooter');
 
 const cartCountTag = document.getElementById('cartCountTag');
@@ -22,7 +24,7 @@ const shippingPrice = document.getElementById('shippingPrice');
 const shippingAlert = document.getElementById('shippingAlert');
 const neededAmount = document.getElementById('neededAmount');
 
-// Abrir y cerrar el modal lateral
+// Abrir / Cerrar Modal
 function toggleCart(show) {
     if (show) {
         cartBackdrop.classList.add('show');
@@ -33,26 +35,30 @@ function toggleCart(show) {
     }
 }
 
-// Eventos para controlar la apertura y cierre
-if(openCartFloating) {
-    openCartFloating.addEventListener('click', (e) => {
-        e.preventDefault(); // Evita que el enlace '#' recargue o mueva la página
-        toggleCart(true);
-    });
-}
+if(openCartFloating) openCartFloating.addEventListener('click', (e) => { e.preventDefault(); toggleCart(true); });
 if(closeCartBtn) closeCartBtn.addEventListener('click', () => toggleCart(false));
 if(btnSeguirComprando) btnSeguirComprando.addEventListener('click', () => toggleCart(false));
 if(cartBackdrop) cartBackdrop.addEventListener('click', () => toggleCart(false));
 
-// Lógica principal de acciones del carrito
+// LÓGICA PRINCIPAL: AGREGAR A LA BASE DE DATOS
 function ejecutarCarrito(accion, id, nombre = '', precio = 0, imagen = '') {
     if (accion === 'agregar') {
+        // 1. Buscamos si el producto ya está en el catálogo visual de la tarjeta de la tienda para jalar los datos reales
         const itemExistente = carrito.find(prod => prod.id === id);
+        
         if (itemExistente) {
             itemExistente.cantidad += 1;
+            sincronizarConBD(id, itemExistente.cantidad);
         } else {
-            carrito.push({ id, nombre, precio: parseFloat(precio), imagen, cantidad: 1 });
+            // Si el nombre no viene del onclick, usamos un fallback por seguridad
+            const finalNombre = nombre || "Producto Nana Mimus";
+            const finalPrecio = parseFloat(precio) || 0.00;
+            const finalImagen = imagen || "NanaMimus/logotipo.jpg";
+
+            carrito.push({ id, nombre: finalNombre, precio: finalPrecio, imagen: finalImagen, cantidad: 1 });
+            sincronizarConBD(id, 1);
         }
+        
         actualizarInterfazCarrito();
         toggleCart(true); 
     }
@@ -65,6 +71,7 @@ function cambiarCantidad(id, cambio) {
         if (item.cantidad <= 0) {
             eliminarDelCarrito(id);
         } else {
+            sincronizarConBD(id, item.cantidad);
             actualizarInterfazCarrito();
         }
     }
@@ -72,32 +79,45 @@ function cambiarCantidad(id, cambio) {
 
 function eliminarDelCarrito(id) {
     carrito = carrito.filter(prod => prod.id !== id);
+    
+    // Notificar eliminación a la Base de Datos mediante PHP
+    fetch('actualizar_carrito_bd.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accion: 'eliminar', producto_id: id })
+    }).catch(err => console.error("Error sincronizando BD:", err));
+
     actualizarInterfazCarrito();
 }
 
-if(document.getElementById('btnVaciarCarrito')) {
-    document.getElementById('btnVaciarCarrito').addEventListener('click', () => {
-        carrito = [];
-        actualizarInterfazCarrito();
-    });
+// Enviar actualizaciones a tu script PHP
+function sincronizarConBD(id, cantidad) {
+    fetch('actualizar_carrito_bd.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accion: 'actualizar', producto_id: id, cantidad: cantidad })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status !== 'success') console.warn("Aviso BD:", data.message);
+    })
+    .catch(err => console.error("Error de conexión con la Base de Datos:", err));
 }
 
-// Renderiza los productos en tiempo real modificando el HTML
+// RENDERIZAR LA INTERFAZ IGUAL A FIGMA (image_30e81.jpg)
 function actualizarInterfazCarrito() {
     localStorage.setItem('nanamimus_cart', JSON.stringify(carrito));
     
     const totalItems = carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
     cartCountTag.innerText = `${totalItems} ${totalItems === 1 ? 'item' : 'items'}`;
     
-    // Control de la burbuja contadora en tu barra de navegación fija
     if (totalItems > 0) {
         globalCartCount.innerText = totalItems;
-        globalCartCount.style.display = 'flex'; // Cambiado a flex para centrar el número con tu CSS
+        globalCartCount.style.display = 'flex'; // Respeta tu .badge-contador flex rosa
     } else {
         globalCartCount.style.display = 'none';
     }
 
-    // Cambiar estados visuales del cuerpo del modal si está vacío o lleno
     if (carrito.length === 0) {
         cartEmptyState.style.display = 'flex';
         cartItemsList.style.display = 'none';
@@ -112,11 +132,11 @@ function actualizarInterfazCarrito() {
     cartItemsList.innerHTML = '';
     let subtotal = 0;
 
-    // Dibujar cada producto en el menú lateral
     carrito.forEach(prod => {
         const subtotalItem = prod.precio * prod.cantidad;
         subtotal += subtotalItem;
 
+        // Estructura limpia y adaptada a tus estilos .cart-item
         cartItemsList.innerHTML += `
             <div class="cart-item">
                 <img src="${prod.imagen}" alt="${prod.nombre}">
@@ -137,7 +157,6 @@ function actualizarInterfazCarrito() {
         `;
     });
 
-    // Cálculos de envío gratis y totales
     const envioGratis = subtotal >= META_ENVIO_GRATIS;
     const envioAplicado = envioGratis ? 0 : COSTO_ENVIO;
     shippingPrice.innerText = envioGratis ? 'Gratis' : `$${COSTO_ENVIO.toFixed(2)}`;
@@ -152,43 +171,17 @@ function actualizarInterfazCarrito() {
     cartTotalPrice.innerText = `$${(subtotal + envioAplicado).toFixed(2)}`;
 }
 
-// Inicializar la interfaz por si hay datos previos guardados en LocalStorage
-actualizarInterfazCarrito();
-
-// Envío estructurado de datos de compra a la Base de Datos mediante PHP
-if(document.getElementById('btnFinalizarCompra')) {
-    document.getElementById('btnFinalizarCompra').addEventListener('click', () => {
-        if(carrito.length === 0) return;
-
-        const subtotal = carrito.reduce((acc, prod) => acc + (prod.precio * prod.cantidad), 0);
-        const envio = subtotal >= META_ENVIO_GRATIS ? 0 : COSTO_ENVIO;
-
-        const datosPedido = {
-            usuario_id: 1, // ID temporal. Si tienes sesiones en PHP, puedes inyectarlo aquí.
-            subtotal: subtotal,
-            envio: envio,
-            productos: carrito
-        };
-
-        fetch('procesar_pedido.php', {
+if(document.getElementById('btnVaciarCarrito')) {
+    document.getElementById('btnVaciarCarrito').addEventListener('click', () => {
+        carrito = [];
+        fetch('actualizar_carrito_bd.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(datosPedido)
-        })
-        .then(response => response.json())
-        .then(res => {
-            if (res.status === 'success') {
-                alert('¡Pedido guardado con éxito! ID de Pedido: ' + res.pedido_id);
-                carrito = [];
-                actualizarInterfazCarrito();
-                toggleCart(false);
-            } else {
-                alert('Error al guardar el pedido: ' + res.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Ocurrió un error de comunicación con el servidor.');
-        });
+            body: JSON.stringify({ accion: 'vaciar' })
+        }).catch(err => console.error(err));
+        actualizarInterfazCarrito();
     });
 }
+
+// Inicializar la carga inicial
+actualizarInterfazCarrito();
