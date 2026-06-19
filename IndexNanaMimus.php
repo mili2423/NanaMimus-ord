@@ -62,7 +62,7 @@ $items_iniciales = 0;
             </div>
         </main>
     </div>
-    <div id="footer"></div>                
+    <?php include 'footer.php'; ?>
     <script src="productos.js"></script>
     <script src="carrito.js"></script>
 </body>
