@@ -11,6 +11,40 @@ $items_iniciales = 0;
     <title>Index | Nana Mimus</title>
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .cart-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 998;
+            display: none;
+        }
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -450px; /* Escondido por defecto a la derecha */
+            width: 100%;
+            max-width: 420px;
+            height: 100%;
+            background: #fff;
+            z-index: 999;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Clase que añade el JS automáticamente al hacer clic */
+        .cart-modal.open {
+            right: 0 !important; /* Lo muestra en pantalla */
+        }
+        .cart-backdrop.show {
+            display: block !important;
+        }
+    </style>
+</head>
 </head>
 
 <body>
@@ -76,7 +110,6 @@ $items_iniciales = 0;
             </div>
             <button id="closeCartBtn" class="close-cart"><i class="fa-solid fa-xmark"></i></button>
         </div>
-
         <div class="cart-body" id="cartBody">
             <!-- Estado Vacío -->
             <div id="cartEmptyState" class="cart-empty">
