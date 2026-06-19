@@ -9,18 +9,8 @@ $items_iniciales = 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index | Nana Mimus</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="estilos.css">
-    <link rel="stylesheet" href="mas_prod.css">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
-    <!-- ENLACE DE TUS ESTILOS EXCLUSIVOS DEL CARRITO -->
-    <link rel="stylesheet" href="carrito.css">
 </head>
 
 <body>
@@ -50,14 +40,18 @@ $items_iniciales = 0;
                 <?php if ($resultado && $resultado->num_rows > 0): ?>
                     <?php while ($producto = $resultado->fetch_assoc()): ?>
                         <div class="producto-card">
-                            <!-- Guardamos los datos en atributos "data-" para que el JS los lea sin romperse -->
                             <img src="<?php echo $producto['imagen1']; ?>" alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
                             <div class="producto-info">
                                 <h3><?php echo htmlspecialchars($producto['nombre']); ?></h3>
                                 <p class="precio">$<?php echo number_format($producto['precio'], 2); ?></p>
                                 
-                                <!-- Simplificado: Solo enviamos el ID en la función -->
-                                <button class="btn-carrito" onclick="ejecutarCarrito('agregar', <?php echo $producto['id']; ?>)">
+                                <!-- CORREGIDO: Le pasamos los datos nativos estructurados al JavaScript para que los capture sin errores -->
+                                <button class="btn-carrito" 
+                                        data-id="<?php echo $producto['id']; ?>"
+                                        data-nombre="<?php echo htmlspecialchars($producto['nombre'], ENT_QUOTES); ?>"
+                                        data-precio="<?php echo $producto['precio']; ?>"
+                                        data-imagen="<?php echo $producto['imagen1']; ?>"
+                                        onclick="agregarDesdeBoton(this)">
                                     <i class="fa-solid fa-cart-shopping" style="margin-right: 8px;"></i> Agregar al Carrito
                                 </button>
                             </div>
@@ -94,7 +88,7 @@ $items_iniciales = 0;
             <div id="cartItemsList" style="display:none;"></div>
         </div>
 
-        <!-- REINCORPORADO: Sección de totales y checkout del carrito -->
+        <!-- Sección de totales y checkout del carrito -->
         <div class="cart-footer" id="cartFooter" style="display:none;">
             <div class="row-fee">
                 <span>Envío</span>
@@ -112,13 +106,11 @@ $items_iniciales = 0;
         </div>
 
     </div> 
-
-    <!-- CARGA DE SCRIPTS -->
-    <script src="productos.js"></script>
-    <script src="carrito.js"></script>
-
-    <!-- EL FOOTER REAL DE LA TIENDA TOTALMENTE AFUERA DEL MODAL -->
-    <?php include 'footer.php'; ?>
 </body>
 
+<!-- CARGA DE SCRIPTS -->
+<script src="productos.js"></script>
+<script src="carrito.js"></script>
+<!-- EL FOOTER REAL DE LA TIENDA TOTALMENTE AFUERA DEL MODAL -->
+<?php include 'footer.php'; ?>
 </html>
