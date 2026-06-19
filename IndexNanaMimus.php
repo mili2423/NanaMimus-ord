@@ -111,7 +111,7 @@ $items_iniciales = 0;
             <button class="btn-vaciar" id="btnVaciarCarrito">Vaciar carrito</button>
         </div>
 
-    </div> <!-- AQUÍ CIERRA CORRECTAMENTE EL MODAL DEL CARRITO -->
+    </div> 
 
     <!-- CARGA DE SCRIPTS -->
     <script src="productos.js"></script>

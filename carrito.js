@@ -1,6 +1,3 @@
-// ==========================================================================
-// LÓGICA DEL MODAL DEL CARRITO - NANA MIMUS
-// ==========================================================================
 
 // Estado interno persistido mediante LocalStorage
 let carrito = JSON.parse(localStorage.getItem('nanamimus_cart')) || [];
