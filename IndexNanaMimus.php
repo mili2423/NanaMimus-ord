@@ -85,10 +85,10 @@ $items_iniciales = 0;
             <!-- Contenedor dinámico de productos -->
             <div id="cartItemsList" style="display:none;"></div>
         </div>
-    <?php include 'footer.php'; ?>
-    <!-- CARGA DE SCRIPTS -->
-    <script src="productos.js"></script>
+        <script src="productos.js"></script>
     <script src="carrito.js"></script>
+    <?php include 'footer.php'; ?>
+    
 </body>
 
 </html>
