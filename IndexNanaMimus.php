@@ -11,40 +11,6 @@ $items_iniciales = 0;
     <title>Index | Nana Mimus</title>
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
-    <!-- ESTILOS INTERNOS PARA EL MODAL LATERAL ESTILO FIGMA -->
-    <style>
-        .cart-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.4);
-            z-index: 998;
-            display: none;
-        }
-        .cart-modal {
-            position: fixed;
-            top: 0;
-            right: -450px;
-            width: 100%;
-            max-width: 420px;
-            height: 100%;
-            background: #fff;
-            z-index: 999;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            transition: right 0.3s ease-in-out;
-            display: flex;
-            flex-direction: column;
-        }
-        .cart-modal.open {
-            right: 0 !important;
-        }
-        .cart-backdrop.show {
-            display: block !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -55,7 +21,7 @@ $items_iniciales = 0;
             <li><img width="1580" height="450" src="NanaMimus/carrr1.jpg" alt=""></li>
             <li><img width="1580" height="450" src="NanaMimus/carrr2.jpg" alt=""></li>
             <li><img width="1580" height="450" src="NanaMimus/carrr3.jpg" alt=""></li>
-            <li><img width="1580" height="450" src="NanaMimus/prueba2.jpg" alt=""></li>
+            <li><img width="1580" height="450" src="NanaMimus/carrr4.jpg" alt=""></li>
             <li><img width="1580" height="450" src="NanaMimus/carrr7.jpg" alt=""></li>
         </ul>
     </div>
