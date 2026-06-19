@@ -21,7 +21,7 @@ $items_iniciales = 0;
 </head>
 
 <body>
-    <?php include 'header.php'; ?> 
+    <?php include 'header.php'; ?>
     <div class="carousel">
         <ul>
             <li><img width="1580" height="450" src="NanaMimus/carrr1.jpg" alt=""></li>
@@ -54,6 +54,8 @@ $items_iniciales = 0;
                                 style="background: #ff409f; color: white; width: 100%; padding: 12px 0; border-radius: 12px; border: none; cursor: pointer; font-size: 0.9rem; font-family: 'Poppins', sans-serif; font-weight: 600; transition: background 0.2s;">
                                 Agregar al carrito
                             </button>
+
+
                         </div>
                     <?php endwhile; ?>
                 <?php else: ?>
@@ -65,7 +67,7 @@ $items_iniciales = 0;
     <!-- ESTRUCTURA DEL MODAL LATERAL DEL CARRITO -->
     <div id="cartBackdrop" class="cart-backdrop"></div>
     <div id="cartModal" class="cart-modal">
-        
+
         <div class="cart-header">
             <div class="cart-title">
                 <i class="fa-solid fa-shopping-cart" style="color: #ff409f;"></i>
@@ -85,10 +87,39 @@ $items_iniciales = 0;
             <!-- Contenedor dinámico de productos -->
             <div id="cartItemsList" style="display:none;"></div>
         </div>
-        <script src="productos.js"></script>
+    </div>
+    <!-- ESTRUCTURA DEL MODAL LATERAL DEL FAVORITOS -->
+    <div id="favBackdrop" class="fav-backdrop"></div>
+
+    <div id="favModal" class="fav-modal">
+
+        <div class="fav-header">
+            <div class="fav-title">
+                <i class="fa-regular fa-heart" style="color:#ff409f;"></i>
+                <span>Mis Favoritos</span>
+                <span id="favCountTag" class="fav-badge-count">0</span>
+            </div>
+            <button id="closeFavBtn" class="close-fav"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="fav-body">
+
+            <!-- vacío -->
+            <div id="favEmptyState" class="fav-empty">
+                <i class="fa-regular fa-heart"></i>
+                <p>No tienes favoritos aún</p>
+            </div>
+
+            <!-- lista dinámica -->
+            <div id="favItemsList" style="display:none;"></div>
+
+        </div>
+
+    </div>
+    <script src="productos.js"></script>
     <script src="carrito.js"></script>
+    <SCript src="favoritos.js"></Script>
     <?php include 'footer.php'; ?>
-    
 </body>
 
 </html>

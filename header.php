@@ -18,6 +18,7 @@
             <div class="navbar-right-container">
                 <a href="preguntasfrecuentes.php" class="btn-ayuda">Ayuda</a>
                 <div class="navbar-icons">
+                    
                     <div class="icon-container">
                         <a href="#" onclick="toggleFavoritos()">
                             <i class="fa-regular fa-heart"></i>
@@ -35,6 +36,7 @@
                             <i class="fa-regular fa-user"></i>
                         </a>
                     </div>
+
                 </div>
             </div>
         </div>

@@ -945,3 +945,212 @@ html {
 .btn-vaciar:hover {
     color: #666666;
 }
+/*SIDEBAR FAVORITOS*/
+.fav-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 380px;
+    height: 100vh;
+    background: white;
+    box-shadow: -8px 0 25px rgba(0,0,0,0.15);
+    transform: translateX(100%);
+    transition: .3s;
+    z-index: 9999;
+}
+
+.fav-modal.open {
+    transform: translateX(0);
+}
+
+
+/* BACKDROP */
+.fav-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.fav-backdrop.show {
+    display: block;
+    opacity: 1;
+}
+
+/* SIDEBAR FAVORITOS */
+.fav-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 420px;
+    height: 100vh;
+    background-color: #ffffff;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* abrir sidebar */
+.fav-modal.open {
+    transform: translateX(0);
+}
+
+/* HEADER */
+.fav-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.fav-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333333;
+}
+
+/* contador badge */
+.fav-badge-count {
+    background: #fff0f6;
+    color: #ff409f;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/* botón cerrar */
+.close-fav {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #aaaaaa;
+    transition: color 0.2s ease;
+}
+
+.close-fav:hover {
+    color: #333333;
+}
+
+/* BODY */
+.fav-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+/* estado vacío */
+.fav-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    gap: 15px;
+}
+
+.fav-empty i {
+    font-size: 2.5rem;
+    color: #ff409f;
+    background: #fff0f6;
+    padding: 20px;
+    border-radius: 50%;
+}
+
+.fav-empty p {
+    color: #777777;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* ITEM FAVORITO  */
+.favorito-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #fffafd;
+    border: 1px solid #fdeef5;
+    padding: 12px;
+    border-radius: 15px;
+    margin-bottom: 12px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.favorito-item img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.favorito-item .info {
+    flex: 1;
+}
+
+.favorito-item h4 {
+    font-size: 0.85rem;
+    color: #333333;
+    font-weight: 500;
+    margin: 0 0 4px 0;
+}
+
+.favorito-item p {
+    color: #ff409f;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* botón eliminar */
+.favorito-item button {
+    background: none;
+    border: none;
+    color: #cccccc;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.favorito-item button:hover {
+    color: #ff4040;
+}
+
+/* FOOTER FAVORITOS */
+.fav-footer {
+    border-top: 1px solid #eeeeee;
+    padding: 20px;
+    background: #fafafa;
+}
+
+.fav-clear {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #aaaaaa;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.fav-clear:hover {
+    color: #666;
+}
