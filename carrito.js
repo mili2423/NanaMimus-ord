@@ -1,3 +1,7 @@
+// ==========================================================================
+// LÓGICA DEL MODAL DEL CARRITO - NANA MIMUS
+// ==========================================================================
+
 // Estado interno persistido mediante LocalStorage
 let carrito = JSON.parse(localStorage.getItem('nanamimus_cart')) || [];
 const COSTO_ENVIO = 5.99;
@@ -32,7 +36,13 @@ function toggleCart(show) {
     }
 }
 
-if(openCartFloating) openCartFloating.addEventListener('click', () => toggleCart(true));
+// Eventos para controlar la apertura y cierre
+if(openCartFloating) {
+    openCartFloating.addEventListener('click', (e) => {
+        e.preventDefault(); // Evita que el enlace '#' recargue o mueva la página
+        toggleCart(true);
+    });
+}
 if(closeCartBtn) closeCartBtn.addEventListener('click', () => toggleCart(false));
 if(btnSeguirComprando) btnSeguirComprando.addEventListener('click', () => toggleCart(false));
 if(cartBackdrop) cartBackdrop.addEventListener('click', () => toggleCart(false));
@@ -82,13 +92,15 @@ function actualizarInterfazCarrito() {
     const totalItems = carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
     cartCountTag.innerText = `${totalItems} ${totalItems === 1 ? 'item' : 'items'}`;
     
+    // Control de la burbuja contadora en tu barra de navegación fija
     if (totalItems > 0) {
         globalCartCount.innerText = totalItems;
-        globalCartCount.style.display = 'block';
+        globalCartCount.style.display = 'flex'; // Cambiado a flex para centrar el número con tu CSS
     } else {
         globalCartCount.style.display = 'none';
     }
 
+    // Cambiar estados visuales del cuerpo del modal si está vacío o lleno
     if (carrito.length === 0) {
         cartEmptyState.style.display = 'flex';
         cartItemsList.style.display = 'none';
@@ -103,6 +115,7 @@ function actualizarInterfazCarrito() {
     cartItemsList.innerHTML = '';
     let subtotal = 0;
 
+    // Dibujar cada producto en el menú lateral
     carrito.forEach(prod => {
         const subtotalItem = prod.precio * prod.cantidad;
         subtotal += subtotalItem;
@@ -127,6 +140,7 @@ function actualizarInterfazCarrito() {
         `;
     });
 
+    // Cálculos de envío gratis y totales
     const envioGratis = subtotal >= META_ENVIO_GRATIS;
     const envioAplicado = envioGratis ? 0 : COSTO_ENVIO;
     shippingPrice.innerText = envioGratis ? 'Gratis' : `$${COSTO_ENVIO.toFixed(2)}`;
@@ -141,41 +155,43 @@ function actualizarInterfazCarrito() {
     cartTotalPrice.innerText = `$${(subtotal + envioAplicado).toFixed(2)}`;
 }
 
-// Inicializar por si ya existían productos guardados previamente
+// Inicializar la interfaz por si hay datos previos guardados en LocalStorage
 actualizarInterfazCarrito();
 
-// Envío estructurado de datos de compra a PHP
-document.getElementById('btnFinalizarCompra').addEventListener('click', () => {
-    if(carrito.length === 0) return;
+// Envío estructurado de datos de compra a la Base de Datos mediante PHP
+if(document.getElementById('btnFinalizarCompra')) {
+    document.getElementById('btnFinalizarCompra').addEventListener('click', () => {
+        if(carrito.length === 0) return;
 
-    const subtotal = carrito.reduce((acc, prod) => acc + (prod.precio * prod.cantidad), 0);
-    const envio = subtotal >= META_ENVIO_GRATIS ? 0 : COSTO_ENVIO;
+        const subtotal = carrito.reduce((acc, prod) => acc + (prod.precio * prod.cantidad), 0);
+        const envio = subtotal >= META_ENVIO_GRATIS ? 0 : COSTO_ENVIO;
 
-    const datosPedido = {
-        usuario_id: 1, 
-        subtotal: subtotal,
-        envio: envio,
-        productos: carrito
-    };
+        const datosPedido = {
+            usuario_id: 1, // ID temporal. Si tienes sesiones en PHP, puedes inyectarlo aquí.
+            subtotal: subtotal,
+            envio: envio,
+            productos: carrito
+        };
 
-    fetch('procesar_pedido.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(datosPedido)
-    })
-    .then(response => response.json())
-    .then(res => {
-        if (res.status === 'success') {
-            alert('¡Pedido guardado con éxito! ID de Pedido: ' + res.pedido_id);
-            carrito = [];
-            actualizarInterfazCarrito();
-            toggleCart(false);
-        } else {
-            alert('Error al guardar el pedido: ' + res.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Ocurrió un error de comunicación con el servidor.');
+        fetch('procesar_pedido.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datosPedido)
+        })
+        .then(response => response.json())
+        .then(res => {
+            if (res.status === 'success') {
+                alert('¡Pedido guardado con éxito! ID de Pedido: ' + res.pedido_id);
+                carrito = [];
+                actualizarInterfazCarrito();
+                toggleCart(false);
+            } else {
+                alert('Error al guardar el pedido: ' + res.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Ocurrió un error de comunicación con el servidor.');
+        });
     });
-});
+}
