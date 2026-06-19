@@ -1,5 +1,6 @@
 <?php
 include("conexion.php");
+$items_iniciales = 0;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -17,6 +18,7 @@ include("conexion.php");
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="estilos_pf.css">
 </head>
+<?php include 'header.php'; ?>
 
 <body class="body-faq">
     <main class="faq-main-container">
@@ -196,7 +198,9 @@ include("conexion.php");
         </div>
 
     </main>
+    <?php include 'footer.php'; ?>
     <script src="scrip_pf.js"></script>
 
 </body>
+
 </html>
