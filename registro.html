@@ -3,22 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de sesión</title>
+    <title>Registro</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
     <div class="contenedor_inicio">
-       
-    <h2 class="Titulo_1">Bienvenido de vuelta</h2>
-    <p class="Subtitulo">Inicio de sesión</p>
-    <hr>
-    <form action="">
+        <div class="cabecera">
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo Nana Mimus">
+        </div>
+        <h2 class="Titulo_1">Crear Cuenta</h2>
+        <p class="Subtitulo">Únete a la familia Nana Mimus </p>
+    </div>
+    <form action="registro.php" method="post">
+        <label for="">Nombre</label>
+        <input type="text" name="nombre_crear" placeholder="Pedro">
+        <label for="">Apellido</label>
+        <input type="text" name="apellido_crear" placeholder="Pedro">
+        <label for="">Fecha de nacimiento</label>
+        <input type="date" name="fecha_crear" id="">
         <label for="">Correo electrónico </label>
         <input type="email" name="Email" placeholder="Hola@gmail.com" id="">
-        <br>
-        <br>
+        <label for="">Teléfono </label>
+        <input type="number" name="telefono_crear" id="">
         <label for="">Contraseña</label>
         <input type="password" name="Contra" id="conta_inicio">
+        <label for="">Confirmar Contraseña</label>
+        <input type="password" name="Contra_confi" id="conta_inicio">
         <br>
         <br>
         <button type="submit" id="btn-inicio_sesion" class="btn-inicio">Iniciar Sesión</button>
@@ -40,14 +51,40 @@
     }
 
     .contenedor_inicio{
-        width:700px;
-        max-width:90%;
-        margin:auto;
-        background:white;
-        padding:40px;
-        border-radius:25px;
-        box-shadow:0 10px 25px rgba(0,0,0,0.08);
-    }
+    width:450px;
+    max-width:90%;
+    margin:auto;
+    background:white;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.cabecera{
+    background:#fbe6f1;
+    padding:25px;
+    text-align:center;
+}
+
+.logo img{
+    width:90px; /* pequeño y centrado */
+    height:auto;
+    margin-bottom:10px;
+}
+
+.Titulo_1{
+    color:#333;
+    margin-bottom:8px;
+}
+
+.Subtitulo{
+    color:#777;
+    font-size:14px;
+}
+
+form{
+    padding:30px;
+}
 
     h2{
         color:#e57fe9;
@@ -105,6 +142,17 @@ hr{
     margin:35px 0;
     border:none;
     border-top:1px solid #ddd;
+}
+.logo{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.logo img{
+    width:120px;      /* Ajusta el tamaño */
+    height:auto;
+    display:block;
+    margin:auto;
 }
     </style>
 </div>
