@@ -16,6 +16,7 @@ $items_iniciales = 0;
 <body>
     <?php include 'header.php'; ?> 
     
+    <?php include 'header.php'; ?>
     <div class="carousel">
         <ul>
             <li><img width="1580" height="450" src="NanaMimus/carrr1.jpg" alt=""></li>
@@ -54,6 +55,17 @@ $items_iniciales = 0;
                                     <i class="fa-solid fa-cart-shopping" style="margin-right: 8px;"></i> Agregar al Carrito
                                 </button>
                             </div>
+                        <div style="background: white; padding: 15px; border-radius: 15px; border: 1px solid #fdeef5; text-align: center; width: 220px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                            <img src="<?php echo $producto['imagen1']; ?>" alt="" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px;">
+                            <h4 style="margin: 10px 0 5px 0; font-size: 0.95rem; color: #333;"><?php echo $producto['nombre']; ?></h4>
+                            <p style="color: #ff409f; font-weight: bold; margin: 0 0 12px 0;">$<?php echo number_format($producto['precio'], 2); ?></p>
+
+                            <button onclick="ejecutarCarrito('agregar', <?php echo $producto['id']; ?>)"
+                                style="background: #ff409f; color: white; width: 100%; padding: 12px 0; border-radius: 12px; border: none; cursor: pointer; font-size: 0.9rem; font-family: 'Poppins', sans-serif; font-weight: 600; transition: background 0.2s;">
+                                Agregar al carrito
+                            </button>
+
+
                         </div>
                     <?php endwhile; ?>
                 <?php else: ?>
@@ -66,7 +78,7 @@ $items_iniciales = 0;
     <!-- ESTRUCTURA DEL MODAL LATERAL DEL CARRITO -->
     <div id="cartBackdrop" class="cart-backdrop"></div>
     <div id="cartModal" class="cart-modal">
-        
+
         <div class="cart-header">
             <div class="cart-title">
                 <i class="fa-solid fa-shopping-cart" style="color: #ff409f;"></i>
@@ -86,29 +98,39 @@ $items_iniciales = 0;
             <!-- Contenedor dinámico de productos -->
             <div id="cartItemsList" style="display:none;"></div>
         </div>
+    </div>
+    <!-- ESTRUCTURA DEL MODAL LATERAL DEL FAVORITOS -->
+    <div id="favBackdrop" class="fav-backdrop"></div>
 
-        <!-- Sección de totales y checkout del carrito -->
-        <div class="cart-footer" id="cartFooter" style="display:none;">
-            <div class="row-fee">
-                <span>Envío</span>
-                <span id="shippingPrice">$5.99</span>
+    <div id="favModal" class="fav-modal">
+
+        <div class="fav-header">
+            <div class="fav-title">
+                <i class="fa-regular fa-heart" style="color:#ff409f;"></i>
+                <span>Mis Favoritos</span>
+                <span id="favCountTag" class="fav-badge-count">0</span>
             </div>
-            <div id="shippingAlert" class="shipping-alert">
-                Agrega <span id="neededAmount">$0.00</span> más para envío gratis
-            </div>
-            <div class="row-total">
-                <span>Total</span>
-                <span class="total-price" id="cartTotalPrice">$0.00</span>
-            </div>
-            <button class="btn-checkout" id="btnFinalizarCompra">Finalizar Compra ✨</button>
-            <button class="btn-vaciar" id="btnVaciarCarrito">Vaciar carrito</button>
+            <button id="closeFavBtn" class="close-fav"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
-    </div> 
+        <div class="fav-body">
+
+            <!-- vacío -->
+            <div id="favEmptyState" class="fav-empty">
+                <i class="fa-regular fa-heart"></i>
+                <p>No tienes favoritos aún</p>
+            </div>
+
+            <!-- lista dinámica -->
+            <div id="favItemsList" style="display:none;"></div>
+
+        </div>
+
+    </div>
+    <script src="productos.js"></script>
+    <script src="carrito.js"></script>
+    <SCript src="favoritos.js"></Script>
+    <?php include 'footer.php'; ?>
 </body>
 
-<!-- CARGA DE SCRIPTS -->
-<script src="productos.js"></script>
-<script src="carrito.js"></script>
-<?php include 'footer.php'; ?>
 </html>

@@ -20,6 +20,7 @@
                 <div class="navbar-icons">
                     
                     <!-- 1. ICONO FAVORITOS -->
+                    
                     <div class="icon-container">
                         <a href="#" onclick="toggleFavoritos()">
                             <i class="fa-regular fa-heart"></i>
@@ -41,6 +42,7 @@
                             <i class="fa-regular fa-user"></i>
                         </a>
                     </div>
+
 
                 </div>
             </div>
