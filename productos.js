@@ -32,3 +32,4 @@ fetch("productos.php")
     });
 
 });
+
