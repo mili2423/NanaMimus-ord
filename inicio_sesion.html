@@ -12,7 +12,7 @@
         }
 
         body {
-            background-color: #f9f9fb;
+            background-color: #f3f6fb; /* Fondo gris suave para que resalte la tarjeta */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
@@ -34,33 +34,41 @@
         /* Encabezado con fondo rosa claro */
         .encabezado {
             background-color: #fff0f5;
-            padding: 40px 30px 30px 30px;
+            padding: 35px 30px 25px 30px;
             text-align: center;
         }
 
-        .marca {
-            color: #ec4099;
-            font-size: 24px;
-            font-weight: 700;
-            line-height: 1.2;
+        /* --- CONTROL DE TU LOGO --- */
+        .logo-redondo-tienda {
+            width: 130px;          /* Tamaño perfecto y estético para el formulario */
+            height: 130px;
+            object-fit: cover;     /* Evita que la imagen se distorsione */
+            border-radius: 50%;    /* Hace la imagen completamente redonda como el prototipo */
+            border: 3px white solid; /* Un borde blanco sutil que la hace resaltar */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-redondo-tienda:hover {
+            transform: scale(1.05); /* Efecto interactivo al pasar el mouse */
         }
 
         .Titulo_1 {
             color: #1e293b;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .Subtitulo {
             color: #64748b;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         /* Cuerpo del Formulario */
         .cuerpo_formulario {
-            padding: 35px 35px 40px 35px;
+            padding: 30px 35px 35px 35px;
         }
 
         .grupo_input {
@@ -94,24 +102,24 @@
             text-decoration: underline;
         }
 
-        /* Inputs estilizados */
+        /* Inputs estilizados (Color de fondo adaptado para que tus textos se lean perfecto) */
         .input-estilo {
             width: 100%;
-            border: 1px solid #f1f5f9;
-            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc; /* Fondo claro como en tu captura */
             border-radius: 15px;
-            padding: 16px 45px; /* Espacio para los iconos */
+            padding: 16px; 
             font-size: 15px;
             color: #334155;
             outline: none;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.01) inset;
         }
 
-        /* Simulando los bordes finos e iluminación de la imagen */
+        /* Al hacer clic en el input */
         .input-estilo:focus {
+            background-color: #fff;
             border-color: #ec4099;
-            box-shadow: 0 0 0 3px rgba(236, 64, 153, 0.1);
+            box-shadow: 0 0 0 3px rgba(236, 64, 153, 0.15);
         }
 
         .input-estilo::placeholder {
@@ -196,8 +204,8 @@
     <div class="contenedor_inicio">
         <div class="encabezado">
              <a href="indexNanaMimus.php">
-                    <img src="NanaMimus/logotipo.jpg" alt="Logo Nana Mimus" class="logo-redondo-tienda">
-                </a>
+                <img src="NanaMimus/logotipo.jpg" alt="Logo Nana Mimus" class="logo-redondo-tienda">
+            </a>
             <h2 class="Titulo_1">Bienvenida de vuelta</h2>
             <p class="Subtitulo">Inicia sesión en tu cuenta</p>
         </div>
