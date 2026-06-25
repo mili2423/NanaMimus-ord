@@ -1,112 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de sesión</title>
-    <link rel="stylesheet" href="estilos.css">
+    <title>Inicio de sesión - Nana Mimus</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f9f9fb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Contenedor Principal */
+        .contenedor_inicio {
+            width: 420px;
+            max-width: 100%;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden; /* Para que el fondo rosa respete las esquinas redondeadas */
+        }
+
+        /* Encabezado con fondo rosa claro */
+        .encabezado {
+            background-color: #fff0f5;
+            padding: 40px 30px 30px 30px;
+            text-align: center;
+        }
+
+        .marca {
+            color: #ec4099;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        .Titulo_1 {
+            color: #1e293b;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .Subtitulo {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        /* Cuerpo del Formulario */
+        .cuerpo_formulario {
+            padding: 35px 35px 40px 35px;
+        }
+
+        .grupo_input {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .grupo_input label {
+            display: block;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* Fila de Contraseña para alinear el "¿Olvidaste tu contraseña?" */
+        .label-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .olvido-link {
+            color: #ec4099;
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .olvido-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Inputs estilizados */
+        .input-estilo {
+            width: 100%;
+            border: 1px solid #f1f5f9;
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 16px 45px; /* Espacio para los iconos */
+            font-size: 15px;
+            color: #334155;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01) inset;
+        }
+
+        /* Simulando los bordes finos e iluminación de la imagen */
+        .input-estilo:focus {
+            border-color: #ec4099;
+            box-shadow: 0 0 0 3px rgba(236, 64, 153, 0.1);
+        }
+
+        .input-estilo::placeholder {
+            color: #cbd5e1;
+        }
+
+        /* Botón Iniciar Sesión (Sólido) */
+        .btn-principal {
+            width: 100%;
+            margin-top: 10px;
+            padding: 16px;
+            background: #f43f5e; /* Rosa intenso */
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(244, 63, 94, 0.2);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-principal:hover {
+            background: #e11d48;
+            transform: translateY(-1px);
+        }
+
+        /* Divisor con texto "¿No tienes cuenta?" en medio */
+        .divisor {
+            text-align: center;
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .divisor::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background-color: #e2e8f0;
+            z-index: 1;
+        }
+
+        .divisor span {
+            background-color: #fff;
+            padding: 0 15px;
+            color: #94a3b8;
+            font-size: 13px;
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+        }
+
+        /* Botón Crear Cuenta (Bordeado) */
+        .btn-secundario {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            color: #db2777;
+            border: 1px solid #fbcfe8;
+            border-radius: 15px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secundario:hover {
+            background-color: #fff1f2;
+            border-color: #db2777;
+        }
+    </style>
 </head>
 <body>
+
     <div class="contenedor_inicio">
-       
-    <h2 class="Titulo_1">Bienvenido de vuelta</h2>
-    <p class="Subtitulo">Inicio de sesión</p>
-    <hr>
-    <form action="">
-        <label for="">Correo electrónico </label>
-        <input type="email" name="Email" placeholder="Hola@gmail.com" id="">
-        <br>
-        <br>
-        <label for="">Contraseña</label>
-        <input type="password" name="Contra" id="conta_inicio">
-        <br>
-        <br>
-        <button type="submit" id="btn-inicio_sesion" class="btn-inicio">Iniciar Sesión</button>
-        <hr>
-        <p>¿No tienes una cuenta?</p>
-        <button type="button" class="btn-inicio">Crear cuanta nueva</button>
-    </form>
-    <style>
-        *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    }
+        <div class="encabezado">
+             <a href="indexNanaMimus.php">
+                    <img src="NanaMimus/logotipo.jpg" alt="Logo Nana Mimus" class="logo-redondo-tienda">
+                </a>
+            <h2 class="Titulo_1">Bienvenida de vuelta</h2>
+            <p class="Subtitulo">Inicia sesión en tu cuenta</p>
+        </div>
 
-    body{
-        background:#f3f6fb;
-        font-family:'Segoe UI',sans-serif;
-        padding:40px 0;
-    }
+        <div class="cuerpo_formulario">
+            <form action="tu_script_login.php" method="POST">
+                
+                <div class="grupo_input">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" name="Email" placeholder="tucorreo@ejemplo.com" id="email" class="input-estilo" required>
+                </div>
 
-    .contenedor_inicio{
-        width:700px;
-        max-width:90%;
-        margin:auto;
-        background:white;
-        padding:40px;
-        border-radius:25px;
-        box-shadow:0 10px 25px rgba(0,0,0,0.08);
-    }
+                <div class="grupo_input">
+                    <div class="label-flex">
+                        <label for="conta_inicio">Contraseña</label>
+                        <a href="#" class="olvido-link">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <input type="password" name="Contra" placeholder="Tu contraseña" id="conta_inicio" class="input-estilo" required>
+                </div>
 
-    h2{
-        color:#e57fe9;
-        margin-bottom:30px;
+                <button type="submit" class="btn-principal">
+                    Iniciar sesión <span>➔</span>
+                </button>
 
-    }
-    input,
-    textarea,
-    select{
-        width:100%;
-        border:2px solid #eb85da;
-        border-radius:18px;
-        padding:15px;
-        font-size:15px;
-        outline:none;
-    }
+                <div class="divisor">
+                    <span>¿No tienes cuenta?</span>
+                </div>
 
-    input:focus,
-    textarea:focus,
-    select:focus{
-        border-color:#ff55ff;
-    }
+                <button type="button" class="btn-secundario">
+                    ✨ Crear cuenta nueva
+                </button>
+            </form>
+        </div>
+    </div>
 
-    textarea{
-        min-height:120px;
-        resize:vertical;
-    }
-    .fila{
-    display:flex;
-    gap:15px;
-}
-
-.grupo{
-    flex:1;
-}
-
-.btn-inicio{
-    width:100%;
-    margin-top:30px;
-    padding:16px;
-    background:#ec76ad;
-    color:white;
-    border:none;
-    border-radius:18px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-}
-
-.btn-inicio:hover{
-    background:#f1398f;
-}
-
-hr{
-    margin:35px 0;
-    border:none;
-    border-top:1px solid #ddd;
-}
-    </style>
-</div>
 </body>
 </html>
