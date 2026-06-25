@@ -129,7 +129,7 @@ body {
 }
 
 .olvido-link {
-    color: #ec4099;
+    color: #e195ab;
     font-size: 12px;
     text-decoration: none;
     font-weight: 600;
@@ -154,7 +154,7 @@ body {
 
 .input-estilo:focus {
     background-color: #fff;
-    border-color: #ec4099;
+    border-color: #e195ab;
     box-shadow: 0 0 0 3px rgba(236, 64, 153, 0.15);
 }
 
@@ -187,7 +187,7 @@ input[type="date"] {
 }
 
 .btn-principal:hover {
-    background: #e11d48;
+    background: #e195ab;
     transform: translateY(-1px);
 }
 
