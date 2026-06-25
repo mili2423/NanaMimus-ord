@@ -2,7 +2,7 @@
 // 1. Datos de conexión a la base de datos
 $servidor = "localhost";
 $usuario  = "root";
-$password = ""; // Poné tu contraseña si tenés, por defecto en XAMPP viene vacío
+$password = ""; // Contraseña vacía por defecto en XAMPP
 $base_datos = "nanamimus";
 
 // Crear la conexión
@@ -16,33 +16,39 @@ if ($conexion->connect_error) {
 // 2. Verificar que se hayan enviado los datos por el método POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    // Recibir y limpiar variables para evitar espacios vacíos o inyecciones básicas
+    // Recibir y limpiar variables
     $nombre    = trim($_POST['Nombre']);
     $apellido  = trim($_POST['Apellido']);
-    $fecha_nac = trim($_POST['FechaNac']); // Va al campo 'fecha' de tu BD
+    $fecha_nac = trim($_POST['FechaNac']); // Va al campo 'fecha'
     $email     = trim($_POST['Email']);
     $telefono  = trim($_POST['Telefono']);
     $contra    = $_POST['Contra'];
     $confirmar_contra = $_POST['ConfirmarContra'];
 
-    // 3. Validaciones de seguridad
+    // 3. Validaciones de campos obligatorios
     if (empty($nombre) || empty($apellido) || empty($fecha_nac) || empty($email) || empty($contra)) {
-        echo "<script>
-                alert('Por favor, completa todos los campos obligatorios.');
-                window.history.back();
-              </script>";
+        header("Location: registro.html?error=campos_vacios");
         exit;
     }
 
+    // 4. Validación de coincidencia de contraseñas
     if ($contra !== $confirmar_contra) {
-        echo "<script>
-                alert('Las contraseñas no coinciden. Inténtalo de nuevo.');
-                window.history.back();
-              </script>";
+        header("Location: registro.html?error=no_coinciden");
         exit;
     }
 
-    // 4. Comprobar si el correo ya está registrado (el campo email es UNIQUE)
+    // 5. VALIDACIÓN DE CONTRASEÑA SEGURA (Cumple con los 3 requisitos de la imagen)
+    // - (?=.*[A-Z]) : Al menos una letra mayúscula
+    // - (?=.*\d)    : Al menos un número
+    // - .{8,}       : Mínimo 8 caracteres de longitud
+    $patron_contra = '/^(?=.*[A-Z])(?=.*\d).{8,}$/';
+
+    if (!preg_match($patron_contra, $contra)) {
+        header("Location: registro.html?error=contra_debil");
+        exit;
+    }
+
+    // 6. Comprobar si el correo ya está registrado (UNIQUE)
     $buscar_email = "SELECT id FROM usuarios WHERE email = ?";
     $stmt_check = $conexion->prepare($buscar_email);
     $stmt_check->bind_param("s", $email);
@@ -50,36 +56,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt_check->store_result();
 
     if ($stmt_check->num_rows > 0) {
-        echo "<script>
-                alert('Este correo electrónico ya se encuentra registrado.');
-                window.history.back();
-              </script>";
+        header("Location: registro.html?error=email_duplicado");
         $stmt_check->close();
         exit;
     }
     $stmt_check->close();
 
-    // 5. Cifrar la contraseña (se encripta igual al formato bcrypt de tu BD)
+    // 7. Cifrar la contraseña de forma segura
     $clave_encriptada = password_hash($contra, PASSWORD_BCRYPT);
 
-    // 6. Preparar la consulta SQL de inserción
+    // 8. Preparar la consulta SQL de inserción
     $insertar_usuario = "INSERT INTO usuarios (nombre, apellido, email, clave, fecha, telefono) VALUES (?, ?, ?, ?, ?, ?)";
     
     $stmt_insert = $conexion->prepare($insertar_usuario);
     $stmt_insert->bind_param("ssssss", $nombre, $apellido, $email, $clave_encriptada, $fecha_nac, $telefono);
 
-    // 7. Ejecutar y redireccionar
+    // 9. Ejecutar e iniciar sesión automática para ir al Index principal
     if ($stmt_insert->execute()) {
-        // Registro exitoso: Avisa al usuario y lo manda directo a iniciar sesión
-        echo "<script>
-                alert('¡Tu cuenta se creó con éxito! Bienvenido a Nana Mimus.');
-                window.location.href = 'inicio_sesion.html';
-              </script>";
+        // Obtenemos el ID del usuario que se acaba de registrar
+        $usuario_id = $stmt_insert->insert_id;
+
+        // Iniciamos la sesión en PHP para que el index lo reconozca como logueado
+        session_start();
+        $_SESSION['usuario_id'] = $usuario_id;
+        $_SESSION['usuario_nombre'] = $nombre;
+        $_SESSION['usuario_email'] = $email;
+
+        // Redirección directa a la página principal sin alertas molestas
+        header("Location: indexNanaMimus.php");
+        exit;
     } else {
-        echo "<script>
-                alert('Hubo un problema al guardar tu usuario: " . $stmt_insert->error . "');
-                window.history.back();
-              </script>";
+        // En caso de un error interno de la base de datos
+        header("Location: registro.html?error=error_servidor");
+        exit;
     }
 
     $stmt_insert->close();
