@@ -1,160 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
+    <title>Registro - Nana Mimus</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <div class="contenedor_inicio">
-        <div class="cabecera">
-        <div class="logo">
-            <img src="img/logo.png" alt="Logo Nana Mimus">
+
+    <div class="contenedor_registro">
+        <div class="encabezado">
+            <a href="indexNanaMimus.php">
+                <img src="NanaMimus/logotipo.jpg" alt="Logo Nana Mimus" class="logo-redondo-tienda">
+            </a>
+            <h2 class="Titulo_1">Crear una cuenta</h2>
+            <p class="Subtitulo">Únete a la comunidad de Nana Mimus</p>
         </div>
-        <h2 class="Titulo_1">Crear Cuenta</h2>
-        <p class="Subtitulo">Únete a la familia Nana Mimus </p>
+
+        <div class="cuerpo_formulario">
+            <form action="tu_script_registro.php" method="POST">
+                
+                <div class="fila-doble">
+                    <div class="grupo_input">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" name="Nombre" placeholder="Tu nombre" id="nombre" class="input-estilo" required>
+                    </div>
+                    <div class="grupo_input">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" name="Apellido" placeholder="Tu apellido" id="apellido" class="input-estilo" required>
+                    </div>
+                </div>
+
+                <div class="grupo_input">
+                    <label for="fecha_nac">Fecha de nacimiento</label>
+                    <input type="date" name="FechaNac" id="fecha_nac" class="input-estilo" required>
+                </div>
+
+                <div class="grupo_input">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" name="Email" placeholder="tucorreo@ejemplo.com" id="email" class="input-estilo" required>
+                </div>
+
+                <div class="grupo_input">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" name="Telefono" placeholder="Ej: +54 9 11 ..." id="telefono" class="input-estilo">
+                </div>
+
+                <div class="grupo_input">
+                    <label for="contra">Contraseña</label>
+                    <input type="password" name="Contra" placeholder="Crea una contraseña" id="contra" class="input-estilo" required>
+                </div>
+
+                <div class="grupo_input">
+                    <label for="confirmar_contra">Confirmar Contraseña</label>
+                    <input type="password" name="ConfirmarContra" placeholder="Repite tu contraseña" id="confirmar_contra" class="input-estilo" required>
+                </div>
+
+                <button type="submit" class="btn-principal">
+                    Registrarse <span>➔</span>
+                </button>
+
+                <div class="divisor">
+                    <span>¿Ya tienes una cuenta?</span>
+                </div>
+
+                <a href="inicio_sesion.html" class="btn-secundario">
+                    Regresar al inicio de sesión
+                </a>
+            </form>
+        </div>
     </div>
-    <form action="registro.php" method="post">
-        <label for="">Nombre</label>
-        <input type="text" name="nombre_crear" placeholder="Pedro">
-        <label for="">Apellido</label>
-        <input type="text" name="apellido_crear" placeholder="Pedro">
-        <label for="">Fecha de nacimiento</label>
-        <input type="date" name="fecha_crear" id="">
-        <label for="">Correo electrónico </label>
-        <input type="email" name="Email" placeholder="Hola@gmail.com" id="">
-        <label for="">Teléfono </label>
-        <input type="number" name="telefono_crear" id="">
-        <label for="">Contraseña</label>
-        <input type="password" name="Contra" id="conta_inicio">
-        <label for="">Confirmar Contraseña</label>
-        <input type="password" name="Contra_confi" id="conta_inicio">
-        <br>
-        <br>
-        <button type="submit" id="btn-inicio_sesion" class="btn-inicio">Iniciar Sesión</button>
-        <hr>
-        <p>¿No tienes una cuenta?</p>
-        <button type="button" class="btn-inicio">Crear cuanta nueva</button>
-    </form>
-    <style>
-        *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    }
 
-    body{
-        background:#f3f6fb;
-        font-family:'Segoe UI',sans-serif;
-        padding:40px 0;
-    }
-
-    .contenedor_inicio{
-    width:450px;
-    max-width:90%;
-    margin:auto;
-    background:white;
-    border-radius:25px;
-    overflow:hidden;
-    box-shadow:0 10px 25px rgba(0,0,0,0.08);
-}
-
-.cabecera{
-    background:#fbe6f1;
-    padding:25px;
-    text-align:center;
-}
-
-.logo img{
-    width:90px; /* pequeño y centrado */
-    height:auto;
-    margin-bottom:10px;
-}
-
-.Titulo_1{
-    color:#333;
-    margin-bottom:8px;
-}
-
-.Subtitulo{
-    color:#777;
-    font-size:14px;
-}
-
-form{
-    padding:30px;
-}
-
-    h2{
-        color:#e57fe9;
-        margin-bottom:30px;
-
-    }
-    input,
-    textarea,
-    select{
-        width:100%;
-        border:2px solid #eb85da;
-        border-radius:18px;
-        padding:15px;
-        font-size:15px;
-        outline:none;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus{
-        border-color:#ff55ff;
-    }
-
-    textarea{
-        min-height:120px;
-        resize:vertical;
-    }
-    .fila{
-    display:flex;
-    gap:15px;
-}
-
-.grupo{
-    flex:1;
-}
-
-.btn-inicio{
-    width:100%;
-    margin-top:30px;
-    padding:16px;
-    background:#ec76ad;
-    color:white;
-    border:none;
-    border-radius:18px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-}
-
-.btn-inicio:hover{
-    background:#f1398f;
-}
-
-hr{
-    margin:35px 0;
-    border:none;
-    border-top:1px solid #ddd;
-}
-.logo{
-    text-align:center;
-    margin-bottom:15px;
-}
-
-.logo img{
-    width:120px;      /* Ajusta el tamaño */
-    height:auto;
-    display:block;
-    margin:auto;
-}
-    </style>
-</div>
 </body>
 </html>

@@ -19,186 +19,221 @@ html {
   --gris-oscuro-texto: #a35f74; /* Tu color de texto original para los links del menú */
 }
 
- /* Contenedor Principal */
-        .contenedor_inicio {
-            width: 420px;
-            max-width: 100%;
-            background: white;
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            overflow: hidden; /* Para que el fondo rosa respete las esquinas redondeadas */
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        /* Encabezado con fondo rosa claro */
-        .encabezado {
-            background-color: #fff0f5;
-            padding: 35px 30px 25px 30px;
-            text-align: center;
-        }
+body {
+    background-color: #f3f6fb;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
 
-        /* --- CONTROL DE TU LOGO --- */
-        .logo-redondo-tienda {
-            width: 130px;          /* Tamaño perfecto y estético para el formulario */
-            height: 130px;
-            object-fit: cover;     /* Evita que la imagen se distorsione */
-            border-radius: 50%;    /* Hace la imagen completamente redonda como el prototipo */
-            border: 3px white solid; /* Un borde blanco sutil que la hace resaltar */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
-        }
+/* Contenedores de Tarjetas (Inicio y Registro) */
+.contenedor_inicio,
+.contenedor_registro {
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
 
-        .logo-redondo-tienda:hover {
-            transform: scale(1.05); /* Efecto interactivo al pasar el mouse */
-        }
+.contenedor_inicio {
+    width: 420px;
+    max-width: 100%;
+}
 
-        .Titulo_1 {
-            color: #1e293b;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
+.contenedor_registro {
+    width: 460px;
+    max-width: 100%;
+}
 
-        .Subtitulo {
-            color: #64748b;
-            font-size: 14px;
-        }
+/* Encabezado con fondo rosa claro (Compartido) */
+.encabezado {
+    background-color: #fff0f5;
+    padding: 35px 30px 25px 30px;
+    text-align: center;
+}
 
-        /* Cuerpo del Formulario */
-        .cuerpo_formulario {
-            padding: 30px 35px 35px 35px;
-        }
+/* Control del Logo Redondo (Compartido) */
+.logo-redondo-tienda {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px white solid;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
 
-        .grupo_input {
-            margin-bottom: 20px;
-            position: relative;
-        }
+.logo-redondo-tienda:hover {
+    transform: scale(1.05);
+}
 
-        .grupo_input label {
-            display: block;
-            color: #334155;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
+.Titulo_1 {
+    color: #1e293b;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
 
-        /* Fila de Contraseña para alinear el "¿Olvidaste tu contraseña?" */
-        .label-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.Subtitulo {
+    color: #64748b;
+    font-size: 14px;
+}
 
-        .olvido-link {
-            color: #ec4099;
-            font-size: 12px;
-            text-decoration: none;
-            font-weight: 600;
-        }
+/* Cuerpo del Formulario */
+.cuerpo_formulario {
+    padding: 30px 35px 35px 35px;
+}
 
-        .olvido-link:hover {
-            text-decoration: underline;
-        }
+/* Fila Doble para Nombre y Apellido (Registro) */
+.fila-doble {
+    display: flex;
+    gap: 15px;
+}
 
-        /* Inputs estilizados */
-        .input-estilo {
-            width: 100%;
-            border: 1px solid #e2e8f0;
-            background-color: #f8fafc; /* Fondo claro como en tu captura */
-            border-radius: 15px;
-            padding: 16px; 
-            font-size: 15px;
-            color: #334155;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+.grupo_input {
+    margin-bottom: 18px;
+    position: relative;
+    flex: 1;
+}
 
-        /* Al hacer clic en el input */
-        .input-estilo:focus {
-            background-color: #fff;
-            border-color: #ec4099;
-            box-shadow: 0 0 0 3px rgba(236, 64, 153, 0.15);
-        }
+.grupo_input label {
+    display: block;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
 
-        .input-estilo::placeholder {
-            color: #cbd5e1;
-        }
+/* Fila de Contraseña (Inicio) */
+.label-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        /* Botón Iniciar Sesión (Sólido) */
-        .btn-principal {
-            width: 100%;
-            margin-top: 10px;
-            padding: 16px;
-            background: #f43f5e; /* Rosa intenso */
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(244, 63, 94, 0.2);
-            transition: transform 0.2s, background 0.2s;
-        }
+.olvido-link {
+    color: #ec4099;
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: 600;
+}
 
-        .btn-principal:hover {
-            background: #e11d48;
-            transform: translateY(-1px);
-        }
+.olvido-link:hover {
+    text-decoration: underline;
+}
 
-        /* Divisor con texto "¿No tienes cuenta?" en medio */
-        .divisor {
-            text-align: center;
-            position: relative;
-            margin: 30px 0;
-        }
+/* Inputs estilizados (Compartido) */
+.input-estilo {
+    width: 100%;
+    border: 1px solid #fbcfe8;
+    background-color: #f8fafc;
+    border-radius: 15px;
+    padding: 15px 16px; 
+    font-size: 15px;
+    color: #334155;
+    outline: none;
+    transition: all 0.3s ease;
+}
 
-        .divisor::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 50%;
-            width: 100%;
-            height: 1px;
-            background-color: #e2e8f0;
-            z-index: 1;
-        }
+.input-estilo:focus {
+    background-color: #fff;
+    border-color: #ec4099;
+    box-shadow: 0 0 0 3px rgba(236, 64, 153, 0.15);
+}
 
-        .divisor span {
-            background-color: #fff;
-            padding: 0 15px;
-            color: #94a3b8;
-            font-size: 13px;
-            position: relative;
-            z-index: 2;
-            font-weight: 500;
-        }
+.input-estilo::placeholder {
+    color: #cbd5e1;
+}
 
-        /* Botón Crear Cuenta convertido a enlace estilizado */
-        .btn-secundario {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            background: transparent;
-            color: #db2777;
-            border: 1px solid #fbcfe8;
-            border-radius: 15px;
-            font-size: 15px;
-            font-weight: 700;
-            text-align: center;
-            text-decoration: none; /* Quita el subrayado común de los enlaces */
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+input[type="date"] {
+    color: #334155;
+}
 
-        .btn-secundario:hover {
-            background-color: #fff1f2;
-            border-color: #db2777;
-        }
-        
+/* Botón Principal Sólido Rosa (Compartido) */
+.btn-principal {
+    width: 100%;
+    margin-top: 10px;
+    padding: 16px;
+    background: #f43f5e;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.2);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.btn-principal:hover {
+    background: #e11d48;
+    transform: translateY(-1px);
+}
+
+/* Divisor intermedio (Compartido) */
+.divisor {
+    text-align: center;
+    position: relative;
+    margin: 25px 0;
+}
+
+.divisor::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: #e2e8f0;
+    z-index: 1;
+}
+
+.divisor span {
+    background-color: #fff;
+    padding: 0 15px;
+    color: #94a3b8;
+    font-size: 13px;
+    position: relative;
+    z-index: 2;
+    font-weight: 500;
+}
+
+/* Botón Secundario Bordeado (Compartido) */
+.btn-secundario {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background: transparent;
+    color: #db2777;
+    border: 1px solid #fbcfe8;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secundario:hover {
+    background-color: #fff1f2;
+    border-color: #db2777;
+}
+
 .navfija {
     position: sticky;
     top: 0;
