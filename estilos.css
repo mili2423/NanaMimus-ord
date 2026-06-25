@@ -225,7 +225,7 @@ input[type="date"] {
     width: 100%;
     padding: 16px;
     background: transparent;
-    color: #db2777;
+    color: #e195ab;
     border: 1px solid #fbcfe8;
     border-radius: 15px;
     font-size: 15px;
@@ -238,7 +238,7 @@ input[type="date"] {
 
 .btn-secundario:hover {
     background-color: #fff1f2;
-    border-color: #db2777;
+    border-color: #e195ab;
 }
 
 .navfija {
