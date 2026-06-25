@@ -61,6 +61,13 @@ body {
     text-align: center;
 }
 
+/* Fuerza a que el contenedor del enlace centre el logo perfectamente */
+.encabezado a {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
 /* Control del Logo Redondo (Compartido) */
 .logo-redondo-tienda {
     width: 120px;
@@ -164,7 +171,7 @@ input[type="date"] {
     width: 100%;
     margin-top: 10px;
     padding: 16px;
-    background: #f43f5e;
+    background: #fdcedf;
     color: white;
     border: none;
     border-radius: 15px;
@@ -175,7 +182,7 @@ input[type="date"] {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.2);
+    box-shadow: 0 4px 12px #e195ab; /* Corregido: se agregó el ';' faltante */
     transition: transform 0.2s, background 0.2s;
 }
 
