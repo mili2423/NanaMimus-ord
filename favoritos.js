@@ -70,13 +70,15 @@ function actualizarContadorFavoritos() {
 // ICONOS CORAZÓN EN PRODUCTOS
 function actualizarIconos() {
 
-    document.querySelectorAll(".btn-fav").forEach(btn => {
+    document.querySelectorAll(".btn-favorito").forEach(btn => {
 
         const id = parseInt(btn.dataset.id);
 
         const existe = favoritos.some(p => p.id === id);
 
         const icon = btn.querySelector("i");
+
+        if (!icon) return;
 
         if (existe) {
             icon.classList.remove("fa-regular");

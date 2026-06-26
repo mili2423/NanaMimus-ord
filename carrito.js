@@ -41,8 +41,7 @@ function ejecutarCarrito(accion, id) {
             toggleCart(true);
         } else {
             // Buscamos el botón clickeado que tiene el ID correspondiente
-            const boton = document.querySelector(`button[onclick*="${id}"]`);
-            
+const boton = document.querySelector(`.btn-carrito[data-id="${id}"]`);            
             // Leemos los atributos data- de forma segura
             const nombre = boton ? boton.getAttribute('data-nombre') : "Producto";
             const precio = boton ? parseFloat(boton.getAttribute('data-precio')) : 0;

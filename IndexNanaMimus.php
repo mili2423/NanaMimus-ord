@@ -36,41 +36,55 @@ $items_iniciales = 0;
         ?>
         <main id="lista-categorias" class="seccion-productos">
             <div class="contenedor-productos">
-                <?php if ($resultado && $resultado->num_rows > 0): ?>
-                    <?php while ($producto = $resultado->fetch_assoc()): ?>
-                        <div class="producto-card">
-                            <img src="<?php echo $producto['imagen1']; ?>" alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
-                            <div class="producto-info">
-                                <h3><?php echo htmlspecialchars($producto['nombre']); ?></h3>
-                                <p class="precio">$<?php echo number_format($producto['precio'], 2); ?></p>
-                                
-                                <!-- Tu botón nativo tal cual lo tenías, usando ejecutarCarrito -->
-                                <button class="btn-carrito" 
-                                        data-nombre="<?php echo htmlspecialchars($producto['nombre'], ENT_QUOTES); ?>"
-                                        data-precio="<?php echo $producto['precio']; ?>"
-                                        data-imagen="<?php echo $producto['imagen1']; ?>"
-                                        onclick="ejecutarCarrito('agregar', <?php echo $producto['id']; ?>)">
-                                    <i class="fa-solid fa-cart-shopping" style="margin-right: 8px;"></i> Agregar al Carrito
-                                </button>
-                            </div>
-                        </div>
-                        <div style="background: white; padding: 15px; border-radius: 15px; border: 1px solid #fdeef5; text-align: center; width: 220px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-                            <img src="<?php echo $producto['imagen1']; ?>" alt="" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px;">
-                            <h4 style="margin: 10px 0 5px 0; font-size: 0.95rem; color: #333;"><?php echo $producto['nombre']; ?></h4>
-                            <p style="color: #ff409f; font-weight: bold; margin: 0 0 12px 0;">$<?php echo number_format($producto['precio'], 2); ?></p>
+    <?php if ($resultado && $resultado->num_rows > 0): ?>
+        <?php while ($producto = $resultado->fetch_assoc()): ?>
 
-                            <button onclick="ejecutarCarrito('agregar', <?php echo $producto['id']; ?>)"
-                                style="background: #ff409f; color: white; width: 100%; padding: 12px 0; border-radius: 12px; border: none; cursor: pointer; font-size: 0.9rem; font-family: 'Poppins', sans-serif; font-weight: 600; transition: background 0.2s;">
-                                Agregar al carrito
-                            </button>
+            <div class="producto-card">
 
+    <!-- BOTÓN FAVORITOS -->
+    <button
+        type="button"
+        class="btn-favorito"
+        data-id="<?php echo $producto['id']; ?>"
+        onclick="toggleFavorito(
+            <?php echo $producto['id']; ?>,
+            '<?php echo htmlspecialchars($producto['nombre'], ENT_QUOTES); ?>',
+            <?php echo $producto['precio']; ?>,
+            '<?php echo $producto['imagen1']; ?>'
+        )">
+        <i class="fa-regular fa-heart"></i>
+    </button>
 
-                        </div>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <p>No se encontraron productos disponibles.</p>
-                <?php endif; ?>
-            </div>
+    <img
+        src="<?php echo $producto['imagen1']; ?>"
+        alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
+
+    <div class="producto-info">
+        <h3><?php echo htmlspecialchars($producto['nombre']); ?></h3>
+
+        <p class="precio">
+            $<?php echo number_format($producto['precio'], 2); ?>
+        </p>
+
+        <button
+            type="button"
+            class="btn-carrito"
+            onclick="ejecutarCarrito('agregar', <?php echo $producto['id']; ?>)">
+            <i class="fa-solid fa-cart-shopping" style="margin-right:8px;"></i>
+            Agregar al carrito
+        </button>
+    </div>
+
+</div>
+
+        <?php endwhile; ?>
+
+    <?php else: ?>
+
+        <p>No se encontraron productos disponibles.</p>
+
+    <?php endif; ?>
+</div>
         </main>
     </div>
 
@@ -107,7 +121,7 @@ $items_iniciales = 0;
             <div class="fav-title">
                 <i class="fa-regular fa-heart" style="color:#ff409f;"></i>
                 <span>Mis Favoritos</span>
-                <span id="favCountTag" class="fav-badge-count">0</span>
+                <span id="favCountTag" class="fav-badge-count">0 items</span>
             </div>
             <button id="closeFavBtn" class="close-fav"><i class="fa-solid fa-xmark"></i></button>
         </div>
@@ -128,7 +142,7 @@ $items_iniciales = 0;
     </div>
     <script src="productos.js"></script>
     <script src="carrito.js"></script>
-    <SCript src="favoritos.js"></Script>
+    <script src="favoritos.js"></script>
     <?php include 'footer.php'; ?>
 </body>
 

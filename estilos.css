@@ -725,6 +725,7 @@ input[type="date"] {
     box-shadow: 0 4px 20px rgba(0,0,0,.06); /* Sombra más suave y moderna */
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .producto-card img {
@@ -1163,6 +1164,32 @@ input[type="date"] {
 
 .btn-vaciar:hover {
     color: #666666;
+}
+
+.btn-favorito{
+    position:absolute;
+    top:15px;
+    right:15px;
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+    cursor:pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.btn-favorito i{
+    color:#ff409f;
+    font-size:20px;
+}
+
+.btn-favorito:hover{
+    transform:scale(1.08);
 }
 
 /*SIDEBAR FAVORITOS*/
