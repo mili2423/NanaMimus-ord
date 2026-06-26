@@ -31,7 +31,291 @@ body {
     margin:0;
     padding:0;
 }
+/* ==========================================================================
+   PÁGINA DE DETALLE DE PRODUCTO (NANA MIMUS)
+   ========================================================================== */
 
+.body-producto-detalle {
+    background-color: #fcf8f9; /* Fondo sutilmente rosado/cálido */
+}
+
+/* Envoltura principal para dar márgenes correctos */
+.main-wrapper {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Breadcrumbs (Inicio / Producto) */
+.breadcrumbs {
+    font-size: 14px;
+    color: #94a3b8;
+    margin-bottom: 15px;
+}
+
+.breadcrumbs a {
+    color: #556275;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumbs a:hover {
+    color: #ff3b93;
+}
+
+.breadcrumbs .current {
+    color: #ff3b93;
+    font-weight: 500;
+}
+
+/* Botón de Volver Atrás */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #556275;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 25px;
+    transition: color 0.2s;
+}
+
+.btn-back:hover {
+    color: #ff3b93;
+}
+
+/* --- CONTENEDOR FLEX PRINCIPAL --- */
+.contenedor-detalle-producto {
+    display: flex;
+    gap: 50px;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.15);
+    align-items: flex-start;
+}
+
+/* Columna Izquierda: Imagen */
+.imagen-producto-wrapper {
+    flex: 1;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fbfbfb;
+    border: 1px solid #ffe3e8;
+}
+
+.imagen-producto-wrapper .img-principal {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Insignia Hecho a Mano flotando sobre la imagen */
+.badge-hecho-mano {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #ff3b93;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Columna Derecha: Información */
+.info-producto-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.categoria-tag {
+    color: #ff3b93;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.titulo-producto {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0b1a30;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+/* Caja de Calificación / Reviews */
+.rating-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.rating-box .stars {
+    color: #ffb6d5; /* Estrellas en rosa suave o dorado */
+}
+
+.rating-box .stars i {
+    font-size: 16px;
+}
+
+.rating-box .rating-num {
+    font-weight: 700;
+    color: #0b1a30;
+    font-size: 15px;
+}
+
+.rating-box .reviews-count {
+    color: #556275;
+    font-size: 14px;
+}
+
+/* Precio */
+.precio-producto {
+    font-size: 36px;
+    font-weight: 800;
+    color: #ff3b93;
+    margin-bottom: 20px;
+}
+
+/* Descripción */
+.descripcion-texto {
+    font-size: 15px;
+    color: #556275;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Lista de Características */
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 35px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.features-list li {
+    font-size: 14px;
+    color: #0b1a30;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.features-list .check-icon {
+    color: #ff3b93;
+    font-weight: bold;
+}
+
+/* --- FILA DE ACCIONES (CARRITO + COMPRAR) --- */
+.actions-row {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-add-cart {
+    flex: 1;
+    background: #ff3b93;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(255, 59, 147, 0.3);
+    font-family: 'Poppins', sans-serif;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-add-cart:hover {
+    background: #e0287b;
+    transform: translateY(-1px);
+}
+
+.btn-add-cart:active {
+    transform: scale(0.98);
+}
+
+/* Botón de favoritos redondo */
+.btn-fav {
+    width: 55px;
+    height: 55px;
+    background: #fff0f3;
+    border: 1px solid #ffe3e8;
+    color: #ff3b93;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.2s ease;
+}
+
+.btn-fav:hover {
+    background: #ffe3e8;
+    color: #e0287b;
+}
+
+/* ==========================================================================
+   RESPONSIVE - DETALLE DE PRODUCTO (MÓVILES Y TABLETS)
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    .contenedor-detalle-producto {
+        flex-direction: column;
+        gap: 30px;
+        padding: 25px;
+    }
+
+    .imagen-producto-wrapper, 
+    .info-producto-wrapper {
+        width: 100%;
+        flex: none;
+    }
+
+    .imagen-producto-wrapper .img-principal {
+        height: 380px;
+    }
+
+    .titulo-producto {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 576px) {
+    .features-list {
+        grid-template-columns: 1fr; /* Una columna para pantallas muy chicas */
+    }
+
+    .actions-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-fav {
+        width: 100%;
+        height: 50px;
+    }
+}
 /* Contenedores de Tarjetas (Inicio y Registro) */
 .contenedor_inicio,
 .contenedor_registro {
