@@ -1,14 +1,14 @@
 <?php
 include("conexion.php");
 $items_iniciales = 0;
-session_start();
-if (isset($_SESSION['usuario'])) {
+//session_start();
+//if (isset($_SESSION['usuario'])) {
     // Si inició sesión, muestras el botón hacia su perfil
-    echo '<a href="perfil.html" class="btn-enlace">Mi Perfil (Hola, ' . $_SESSION['usuario'] . ')</a>';
-} else {
+  //  echo '<a href="perfil.html" class="btn-enlace">Mi Perfil (Hola, ' . $_SESSION['usuario'] . ')</a>';
+//} else {
     // Si no ha iniciado sesión, muestras el botón de Ingresar
-    echo '<a href="inicio_sesion.html" class="btn-enlace">Iniciar Sesión / Registrarse</a>';
-}
+  //  echo '<a href="inicio_sesion.html" class="btn-enlace">Iniciar Sesión / Registrarse</a>';
+//}
 ?>
 <!DOCTYPE html>
 <html lang="es">
