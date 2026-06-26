@@ -19,7 +19,10 @@ if ($clave !== $confirmar) {
     die("Las contraseñas no coinciden.");
 }
 
-$verificar = $conn->prepare("SELECT id FROM usuarios WHERE email = ?");
+$verificar = $conn->prepare(
+    "SELECT id FROM usuarios WHERE email = ?"
+);
+
 $verificar->bind_param("s", $email);
 $verificar->execute();
 $resultado = $verificar->get_result();
@@ -28,16 +31,14 @@ if ($resultado->num_rows > 0) {
     die("Este correo ya está registrado.");
 }
 
-// Encriptamos la contraseña correctamente
 $clave_encriptada = password_hash($clave, PASSWORD_DEFAULT);
 
-// CORRECCIÓN: Usamos '?' para que bind_param funcione de verdad
 $stmt = $conn->prepare("
-    INSERT INTO usuarios (nombre, apellido, fecha, email, telefono, clave)
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO usuarios
+    (nombre, apellido, fecha, email, telefono, clave)
+    VALUES ('$nombre', '$apellido', '$fecha', '$email', '$telefono', '$clave')
 ");
 
-// Ahora sí pasamos las 6 variables en orden, incluyendo la clave encriptada
 $stmt->bind_param(
     "ssssss",
     $nombre,
