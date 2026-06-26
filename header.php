@@ -38,8 +38,9 @@
                     
                     <!-- 3. ICONO USUARIO -->
                     <div class="icon-container">
-                        <a href="inicio_sesion.html">
+                        <a href="perfil.html"><!--Esto es por ahora-->
                             <i class="fa-regular fa-user"></i>
+                            <div id="contenedor-usuario"></div>
                         </a>
                     </div>
 
