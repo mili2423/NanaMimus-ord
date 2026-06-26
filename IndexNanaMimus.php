@@ -15,7 +15,7 @@ $items_iniciales = 0;
 
 <body>
     <?php include 'header.php'; ?> 
-        <div class="carousel">
+    <div class="carousel">
         <ul>
             <li><img width="1580" height="450" src="NanaMimus/carrr1.jpg" alt=""></li>
             <li><img width="1580" height="450" src="NanaMimus/carrr2.jpg" alt=""></li>
@@ -53,6 +53,7 @@ $items_iniciales = 0;
                                     <i class="fa-solid fa-cart-shopping" style="margin-right: 8px;"></i> Agregar al Carrito
                                 </button>
                             </div>
+                        </div>
                         <div style="background: white; padding: 15px; border-radius: 15px; border: 1px solid #fdeef5; text-align: center; width: 220px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
                             <img src="<?php echo $producto['imagen1']; ?>" alt="" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px;">
                             <h4 style="margin: 10px 0 5px 0; font-size: 0.95rem; color: #333;"><?php echo $producto['nombre']; ?></h4>
